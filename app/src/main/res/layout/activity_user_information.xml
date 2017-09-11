@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.indcgroup.giasutot.customer.UserInformationActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_normal"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/ad_view_id" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_low"
+                    android:text="THÔNG TIN BÀI VIẾT"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorAccent" />
+
+                <TextView
+                    android:id="@+id/txtCreatedDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_low"
+                    android:text="Ngày đăng: "
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:id="@+id/txtGrade"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_low"
+                    android:text="Lớp: "
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:id="@+id/txtSubject"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_low"
+                    android:text="Môn: "
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:id="@+id/txtContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_low"
+                    android:lineSpacingExtra="5dp"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_low"
+                    android:text="THÔNG TIN CÁ NHÂN"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorAccent" />
+
+
+                <ImageView
+                    android:id="@+id/imgAvatar"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/margin_low"
+                    android:scaleType="centerInside" />
+
+                <TextView
+                    android:id="@+id/txtFullname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_low"
+                    android:text="Họ tên: "
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:id="@+id/txtGender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_low"
+                    android:text="Giới tính: "
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:id="@+id/txtEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_low"
+                    android:text="Email: "
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:id="@+id/txtPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_low"
+                    android:text="Điện thoại: "
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:id="@+id/txtAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_low"
+                    android:text="Địa chỉ: "
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:id="@+id/txtIdentityCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_low"
+                    android:text="CMND/Hộ chiếu: "
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:id="@+id/txtPosition"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_low"
+                    android:text="Ngành nghề: "
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:id="@+id/txtDocumentation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_low"
+                    android:text="Bằng cấp: "
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <RatingBar
+                    android:id="@+id/rabRate"
+                    style="@android:style/Widget.Holo.RatingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/margin_low"
+                    android:numStars="5"
+                    android:scaleX=".5"
+                    android:scaleY=".5"
+                    android:stepSize="1" />
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabCall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_call" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_textsms" />
+
+</android.support.design.widget.CoordinatorLayout>

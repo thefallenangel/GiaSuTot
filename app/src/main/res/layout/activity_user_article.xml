@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.indcgroup.giasutot.user.UserArticleActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_normal"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/ad_view_id" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtCreatedDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_low"
+                    android:text="Ngày cập nhật: "
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size"
+                    android:textStyle="bold|italic" />
+
+                <MultiAutoCompleteTextView
+                    android:id="@+id/atxtGrade"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_low"
+                    android:completionThreshold="1"
+                    android:hint="Chọn lớp có thể dạy..."
+                    android:textSize="@dimen/text_size" />
+
+                <MultiAutoCompleteTextView
+                    android:id="@+id/atxtSubject"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_low"
+                    android:completionThreshold="1"
+                    android:hint="Chọn môn có thể dạy..."
+                    android:textSize="@dimen/text_size" />
+
+                <EditText
+                    android:id="@+id/edtContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_low"
+                    android:gravity="top|left"
+                    android:hint="Giới thiệu chi tiết bản thân cũng như kinh nghiệm để mọi người biết đến bạn..."
+                    android:inputType="textMultiLine"
+                    android:lineSpacingExtra="@dimen/margin_low"
+                    android:lines="10"
+                    android:maxLines="10"
+                    android:minLines="10"
+                    android:scrollbars="vertical"
+                    android:textSize="@dimen/text_size" />
+
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_save" />
+
+</android.support.design.widget.CoordinatorLayout>

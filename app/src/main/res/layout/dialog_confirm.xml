@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/txtDialogBody"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_normal"
+        android:lineSpacingExtra="5dp"
+        android:scrollbars="vertical"
+        android:textColor="@color/colorText"
+        android:textSize="@dimen/text_size" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_normal"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <Button
+            android:id="@+id/btnDialogNo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/margin_normal"
+            android:layout_weight="0.5"
+            android:background="@color/colorErrorButton"
+            android:padding="@dimen/margin_normal"
+            android:text="Không"
+            android:textSize="@dimen/text_size" />
+
+        <Button
+            android:id="@+id/btnDialogYes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/margin_normal"
+            android:layout_weight="0.5"
+            android:background="@color/colorSuccessButton"
+            android:padding="@dimen/margin_normal"
+            android:text="Có"
+            android:textSize="@dimen/text_size" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

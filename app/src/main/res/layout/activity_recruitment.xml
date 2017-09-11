@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.indcgroup.giasutot.customer.RecruitmentActivity">
+
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_normal"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/ad_view_id" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <MultiAutoCompleteTextView
+                android:id="@+id/atxtGrade"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_low"
+                android:completionThreshold="1"
+                android:hint="Lớp"
+                android:textSize="@dimen/text_size" />
+
+            <MultiAutoCompleteTextView
+                android:id="@+id/atxtSubject"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_low"
+                android:completionThreshold="1"
+                android:hint="Môn"
+                android:textSize="@dimen/text_size" />
+
+            <EditText
+                android:id="@+id/edtAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_low"
+                android:hint="Địa chỉ dạy"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textSize="@dimen/text_size" />
+
+            <EditText
+                android:id="@+id/edtPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_low"
+                android:hint="Số điện thoại"
+                android:inputType="phone"
+                android:maxLines="1"
+                android:textSize="@dimen/text_size" />
+
+            <EditText
+                android:id="@+id/edtContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_low"
+                android:gravity="top|left"
+                android:hint="Nội dung"
+                android:inputType="textMultiLine"
+                android:lineSpacingExtra="@dimen/margin_low"
+                android:lines="10"
+                android:minLines="7"
+                android:scrollbars="vertical"
+                android:textSize="@dimen/text_size" />
+
+            <Button
+                android:id="@+id/btnSend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_low"
+                android:background="@color/colorAccent"
+                android:padding="@dimen/margin_normal"
+                android:text="Gửi bài đăng"
+                android:textSize="@dimen/text_size" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

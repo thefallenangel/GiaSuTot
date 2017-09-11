@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.indcgroup.giasutot.customer.MainActivity"
+    tools:showIn="@layout/app_bar_main">
+
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_normal"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/ad_view_id" />
+
+    <ListView
+        android:id="@+id/lstArticle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@color/colorAccent"
+        android:dividerHeight="1dp" />
+
+
+</LinearLayout>

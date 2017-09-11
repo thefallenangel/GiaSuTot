@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.indcgroup.giasutot">
+
+    <!--Normal permission-->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!--Dangerous permission-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/logo"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".customer.FirstLoadingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".customer.MainActivity"
+            android:label="@string/latest_article"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".customer.SignUpActivity"
+            android:label="@string/sign_up"
+            android:parentActivityName=".customer.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".customer.SignInActivity"
+            android:label="@string/sign_in"
+            android:parentActivityName=".customer.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".customer.SearchingUserSetupActivity"
+            android:label="@string/searching_user_setup"
+            android:parentActivityName=".customer.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".customer.SearchingUserResultActivity"
+            android:label="@string/searching_user_result"
+            android:parentActivityName=".customer.SearchingUserSetupActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".customer.UserInformationActivity"
+            android:label="@string/user_information"
+            android:parentActivityName=".customer.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".customer.RecruitmentActivity"
+            android:label="@string/recruitment"
+            android:parentActivityName=".customer.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".user.UserActivity"
+            android:label="@string/latest_recruitment"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".user.UserProfileActivity"
+            android:label="@string/user_profile"
+            android:parentActivityName=".user.UserActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".user.UserArticleActivity"
+            android:label="@string/user_article"
+            android:parentActivityName=".user.UserActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".user.UserTransactionActivity"
+            android:label="@string/user_transaction"
+            android:parentActivityName=".user.UserActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".addition.LicenseActivity"
+            android:label="@string/license"
+            android:parentActivityName=".customer.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".addition.InstructionActivity"
+            android:label="@string/instruction"
+            android:parentActivityName=".customer.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.indcgroup.giasutot.customer.MainActivity" />
+        </activity>
+        <activity
+            android:name=".addition.AboutUsActivity"
+            android:label="@string/about_us"
+            android:parentActivityName=".customer.MainActivity"
+            android:screenOrientation="portrait" />
+
+    </application>
+
+</manifest>

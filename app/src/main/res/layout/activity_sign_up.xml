@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.indcgroup.giasutot.customer.SignUpActivity">
+
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_normal"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/ad_view_id" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/imgAvatar"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/margin_low"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/logo" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Thông tin tài khoản"
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/text_size"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="@dimen/margin_low"
+                android:background="@color/colorPrimaryDark" />
+
+            <EditText
+                android:id="@+id/edtUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_low"
+                android:hint="Tên đăng nhập"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textSize="@dimen/text_size" />
+
+            <EditText
+                android:id="@+id/edtPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_low"
+                android:hint="Mật khẩu"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:textSize="@dimen/text_size" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Thông tin cá nhân"
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/text_size"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="@dimen/margin_low"
+                android:background="@color/colorPrimaryDark" />
+
+            <EditText
+                android:id="@+id/edtFullname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_low"
+                android:hint="Họ và tên"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textSize="@dimen/text_size" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_low"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <RadioButton
+                    android:id="@+id/radMale"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:checked="true"
+                    android:text="Nam"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <RadioButton
+                    android:id="@+id/radFemale"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="Nữ"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+            </RadioGroup>
+
+            <EditText
+                android:id="@+id/edtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_low"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:textSize="@dimen/text_size" />
+
+            <EditText
+                android:id="@+id/edtPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_low"
+                android:hint="Số điện thoại"
+                android:inputType="phone"
+                android:maxLines="1"
+                android:textSize="@dimen/text_size" />
+
+            <EditText
+                android:id="@+id/edtAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_low"
+                android:hint="Địa chỉ"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textSize="@dimen/text_size" />
+
+            <EditText
+                android:id="@+id/edtIdentityCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_low"
+                android:hint="Chứng minh nhân dân/Hộ chiếu"
+                android:inputType="text"
+                android:textSize="@dimen/text_size" />
+
+            <EditText
+                android:id="@+id/edtDocumentation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_low"
+                android:hint="Thông tin bằng cấp"
+                android:inputType="text"
+                android:textSize="@dimen/text_size" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_normal"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/radStudent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Sinh viên"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <RadioButton
+                    android:id="@+id/radGraduated"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Đã tốt nghiệp"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <RadioButton
+                    android:id="@+id/radTeacher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Giáo viên - Giảng viên"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/btnSignUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_low"
+                android:background="@color/colorAccent"
+                android:padding="@dimen/margin_normal"
+                android:text="Đăng ký"
+                android:textSize="@dimen/text_size" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Dành cho khách hàng">
+        <menu>
+            <item
+                android:id="@+id/nav_search"
+                android:icon="@drawable/ic_search"
+                android:title="Tìm kiếm gia sư" />
+            <item
+                android:id="@+id/nav_recruit"
+                android:icon="@drawable/ic_brush"
+                android:title="Đăng tìm gia sư" />
+        </menu>
+    </item>
+
+    <item android:title="Dành cho gia sư">
+        <menu>
+            <item
+                android:id="@+id/nav_signin"
+                android:icon="@drawable/ic_arrow_forward"
+                android:title="Đăng nhập" />
+            <item
+                android:id="@+id/nav_signup"
+                android:icon="@drawable/ic_arrow_downward"
+                android:title="Đăng ký" />
+        </menu>
+    </item>
+
+    <item android:title="Bổ sung">
+        <menu>
+            <item
+                android:id="@+id/nav_license"
+                android:icon="@drawable/ic_assignment_turned_in"
+                android:title="Điều khoản dịch vụ" />
+            <item
+                android:id="@+id/nav_instruction"
+                android:icon="@drawable/ic_dashboard"
+                android:title="Hướng dẫn sử dụng" />
+            <item
+                android:id="@+id/nav_rate"
+                android:icon="@drawable/ic_stars"
+                android:title="Đánh giá" />
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@drawable/ic_new_releases"
+                android:title="Về chúng tôi" />
+        </menu>
+    </item>
+
+</menu>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.indcgroup.giasutot.customer.SearchingUserResultActivity">
+
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_normal"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/ad_view_id" />
+
+    <TextView
+        android:id="@+id/txtGender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_low"
+        android:text="Giới tính: "
+        android:textColor="@color/colorText"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/txtPosition"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_low"
+        android:text="Ngành nghề: "
+        android:textColor="@color/colorText"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/txtGrade"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_low"
+        android:text="Lớp: "
+        android:textColor="@color/colorText"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/txtSubject"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_low"
+        android:text="Môn: "
+        android:textColor="@color/colorText"
+        android:textStyle="italic" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/margin_low"
+        android:background="@color/colorAccent" />
+
+    <ListView
+        android:id="@+id/lstArticle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@color/colorAccent"
+        android:dividerHeight="1dp" />
+
+</LinearLayout>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#e60000</color>
+    <color name="colorPrimaryDark">#990000</color>
+    <color name="colorAccent">#ff3333</color>
+
+    <color name="colorText">#4d0000</color>
+
+    <color name="colorErrorText">#cc0000</color>
+    <color name="colorSuccessText">#00cc00</color>
+    <color name="colorErrorButton">#ff3333</color>
+    <color name="colorSuccessButton">#33ff33</color>
+
+    <color name="spots_dialog_color">@color/colorAccent</color>
+
+</resources>

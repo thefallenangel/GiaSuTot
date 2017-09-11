@@ -1,0 +1,190 @@
+<resources>
+    <string name="app_name">Gia sư tốt</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Cài đặt</string>
+
+
+    <!--Ads ID-->
+    <string name="ad_application_id">ca-app-pub-4267772758405704~5055667902</string>
+    <string name="ad_view_id">ca-app-pub-4267772758405704/6766783941</string>
+    <string name="ad_page_id">ca-app-pub-4267772758405704/5343813642</string>
+
+    <!--Activity title list-->
+    <string name="latest_article">Bài đăng mới nhất</string>
+    <string name="searching_user_setup">Thiết lập tìm kiếm</string>
+    <string name="searching_user_result">Kết quả tìm kiếm</string>
+    <string name="user_information">Thông tin gia sư</string>
+    <string name="recruitment">Đăng tìm gia sư</string>
+    <string name="sign_up">Đăng ký</string>
+    <string name="sign_in">Đăng nhập</string>
+    <string name="latest_recruitment">Tuyển dụng mới nhất</string>
+    <string name="user_profile">Thông tin cá nhân</string>
+    <string name="user_article">Thông tin bài viết</string>
+    <string name="user_transaction">Điểm của tôi</string>
+    <string name="license">Điều khoản dịch vụ</string>
+    <string name="instruction">Hướng dẫn sử dụng</string>
+    <string name="about_us">Về chúng tôi</string>
+
+    <!--URL list-->
+    <string name="TestURL">http://192.168.1.69:6969/api/gate/index</string>
+    <string name="LoginURL">http://192.168.1.69:6969/api/gate/login?value=%1$s</string>
+    <string name="RegisterURL">http://192.168.1.69:6969/api/gate/register?value=%1$s</string>
+    <string name="GetLatestArticleURL">http://192.168.1.69:6969/api/gate/getlatestarticle?value=%1$s</string>
+    <string name="SearchArticleURL">http://192.168.1.69:6969/api/gate/searcharticle?value=%1$s</string>
+    <string name="GetUserInformationURL">http://192.168.1.69:6969/api/gate/getuserinformation?value=%1$s</string>
+    <string name="AddRecruitment">http://192.168.1.69:6969/api/gate/addrecruitment?value=%1$s</string>
+    <string name="GetLatestRecruitmentURL">http://192.168.1.69:6969/api/gate/getlatestrecruitment?value=%1$s</string>
+    <string name="GetUserProfile">http://192.168.1.69:6969/api/gate/getuserprofile?value=%1$s</string>
+    <string name="SaveUserProfile">http://192.168.1.69:6969/api/gate/saveuserprofile?value=%1$s</string>
+    <string name="GetUserArticle">http://192.168.1.69:6969/api/gate/getuserarticle?value=%1$s</string>
+    <string name="AddUserArticle">http://192.168.1.69:6969/api/gate/adduserarticle?value=%1$s</string>
+    <string name="GetUserTransaction">http://192.168.1.69:6969/api/gate/getusertransaction?value=%1$s</string>
+    <string name="SaveRating">http://192.168.1.69:6969/api/gate/saverating?value=%1$s</string>
+    <string name="LoadAvatar">http://192.168.1.69:6969/Files/avatars/%1$s/avt.jpg</string>
+
+    <!--Google API URL list-->
+    <string name="Google_GetDistanceURL">https://maps.googleapis.com/maps/api/distancematrix/json?origins=$%1$s&amp;destinations=$%2$s</string>
+    <string name="Google_GetAddressURL">https://maps.googleapis.com/maps/api/geocode/json?latlng=%1$s</string>
+    <string name="Google_GetLocationURL">https://maps.googleapis.com/maps/api/geocode/json?address=%1$s</string>
+
+    <!--License-->
+    <string name="License">
+        Bằng việc tải và sử dụng ứng dụng, bạn đã chấp nhận các điều khoản dịch vụ sau đây: \n
+        1. Cập nhật \n
+        Thỏa thuận này có thể được cập nhật thường xuyên mà không cần phải thông báo trước tới khách hàng.
+        Người dùng có thể truy cập vào website http://giasutot.vn hoặc chọn vào mục "Điều khoản dịch vụ" trên ứng dụng để biết rõ hơn. \n
+        2. Quyền sở hữu ứng dụng \n
+        Ứng dụng được sở hữu bởi công ty Cổ phần tư vấn đầu tư INDC GROUP.
+        Tất cả các quyền sở hữu trí tuệ liên quan tới ứng dụng (bao gồm logo, hình ảnh thương hiệu, tên miền, mã nguồn, dữ liệu thông tin, nội dung trong ứng dụng, các sửa đổi bổ sung cập nhật ứng dụng, các tài liệu hướng dẫn) đều duy nhất thuộc bản quyền sở hữu của công ty INDC GROUP.
+        Mọi chia sẻ, sao chép dưới bất kỳ hình thức nào mà không có sự đồng ý bằng văn bản của công ty INDC GROUP đều là bất hợp pháp. \n
+        3. Bảo mật thông tin \n
+        Chúng tôi cam kết giữ bí mật toàn bộ thông tin mà bạn cung cấp hoặc chúng tôi thu thập từ bạn.
+        Chúng tôi không tiết lộ với bất kỳ bên thứ ba nào trừ khi có yêu cầu từ Cơ quan Nhà nước có thẩm quyền. \n
+        4. Xử lý vi phạm \n
+        Trường hợp bạn vi phạm bất kỳ quy định nào trong thỏa thuận này, chúng tôi có quyền ngay lập tức khóa tài khoản của bạn, và/hoặc xóa bỏ toàn bộ thông tin, nội dung vi phạm.
+        Tùy thuộc vào tính chất và mức độ vi phạm, bạn sẽ phải chịu trách nhiệm trước cơ quan có thẩm quyền, công ty INDC GROUP và bên thứ ba về mọi thiệt hại gây ra bởi hoặc xuất phát từ hành vi vi phạm của bạn. \n
+        5. Bảo vệ người dùng \n
+        Chúng tôi không quản lý về chất lượng cũng như tính cách của gia sư mà bạn gọi đến thông qua ứng dụng.
+        Hãy chủ động tạo môi trường làm việc, chủ động bảo vệ bản thân và người thân của mình.
+        Đồng thời hãy xác minh thông tin của gia sư đến dạy có trùng khớp với thông tin trên hệ thống hay không để tránh trường hợp lừa đảo hoặc gây mất trật tự an ninh không đáng có.
+        Chúng tôi không chịu trách nhiệm với bất cứ trường hợp nào trong quá trình giao tiếp, giảng dạy giữa gia sư và người cần gia sư. \n
+        6. Phí dịch vụ và các khoản thu \n
+        Chúng tôi không thu bất cứ khoản phí nào từ người dùng trên tư cách là khách hàng tìm kiếm gia sư.
+        Đối với gia sư khi đăng, chỉnh sửa, hoặc làm mới bài giới thiệu bản thân sẽ sử dụng điểm cá nhân trên hệ thống.
+        Điểm này được cộng bằng cách nhắn tin hoặc nạp thẻ, hoặc sẽ được khuyến mại khi có chương trình ưu đãi từ hệ thống.
+        Chúng tôi cam kết không thu phí dựa trên thu nhập của gia sư đối với khách hàng. \n
+        7. Liên lạc với chúng tôi \n
+        Khi có bất kỳ thắc mắc nào, bạn có thể liên hệ với chúng tôi theo địa chỉ email: hotro.giasutot@gmail.com hoặc qua số điện thoại 0125.876.9804.
+        Công ty Cổ phần tư vấn đầu tư INDC GROUP, địa chỉ: số 21, ngách ¾ Cầu Bươu, Tả Thanh Oai, Thanh Trì, Hà Nội. \n
+        \n
+        Trân trọng cảm ơn bạn đã sử dụng sản phầm và dịch vụ của chúng tôi!
+    </string>
+
+    <!--Instruction-->
+    <string name="InsPermission">
+        - Trong quá trình cài đặt và sử dụng, ứng dụng sẽ yêu cầu bạn cấp một số quyền hạn cho ứng dụng.
+        Một trong số đó là quyền truy cập vị trí.
+        Bạn cần bật vị trí trên điện thoại của mình để ứng dụng có thể chạy được.
+    </string>
+    <string name="InsArray">
+        - Một vài danh sách đã được cố định sẵn các phần tử.
+        Khi cần chọn phần tử nào đó trong danh sách, chỉ cần nhập một ký tự.
+        Gợi ý của ứng dụng dựa trên danh sách này.
+        Nếu sau khi cập nhật phiên bản có thay đổi về phần tử của các danh sách này, phần này cũng được cập nhật theo. \n
+        - Ngành nghề: Sinh viên, Đã tốt nghiệp, Giáo viên – Giảng viên \n
+        - Lớp: Lớp 1, Lớp 2, Lớp 3, Lớp 4, Lớp 5, Lớp 6, Lớp 7, Lớp 8, Lớp 9, Lớp 10, Lớp 11, Lớp 12,
+        Lớp tiếng Anh, Lớp tiếng Trung, Lớp tiếng Nhật, Lớp tiếng Hàn, Lớp tiếng Pháp, Lớp tiếng Đức, Lớp tiếng Nga, Lớp tiếng Thái,
+        Lớp bổ túc lái xe, Lớp bơi lội, Lớp võ thuật, Lớp âm nhạc, Lớp hội họa, Lớp tennis, Lớp khác. \n
+        - Môn: Toán, Tin học, Vật lý, Hóa học, Sinh học, Ngữ văn, Lịch sử, Địa lý,
+        Tiếng Anh, Tiếng Trung, Tiếng Nhật, Tiếng Hàn, Tiếng Pháp, Tiếng Đức, Tiếng Nga,
+        Võ thuật, Bơi lội, Âm nhạc, Hội họa, Bóng chuyền, Bóng rổ, Môn khác.
+    </string>
+    <string name="InsLatestArticle">
+        - Danh sách bài viết giới thiệu bản thân của từng gia sư được hiển thị tại đây.
+        Bạn có thể nhìn thấy họ tên, nghề nghiệp, giới tính, thời gian đăng bài, khoảng cách ước tính từ vị trí của bạn và nội dung bài viết được hiển thị ngắn gọn.
+        Chạm vào một phần tử trong danh sách sẽ nhìn được thông tin về gia sư đó chi tiết hơn. \n
+        - Phần bài đăng mới nhất này được coi như danh mục chính của người dùng trên tư cách là khách hàng cần tìm gia sư.
+        Bạn có thể nhấn nút ở góc trên cùng bên trái hoặc vuốt từ trái qua phải để mở ra danh mục chức năng của ứng dụng.
+    </string>
+    <string name="InsUserInformation">
+        - Khi chọn một gia sư trong danh sách, bạn sẽ đến với phần thông tin gia sư.
+        Phần này hiển thị chi tiết thông tin về gia sư đó như lớp, môn mà gia sư có thể dạy.
+        Thông tin đầy đủ về bài giới thiệu và thông tin cá nhân của gia sư cũng được hiển thị tại đây. \n
+        - Hơn nữa, bạn có thể nhấn nút gọi điện ở góc dưới bên phải màn hình, hoặc nút nhắn tin ở góc dưới bên trái để gọi điện hoặc nhắn tin trực tiếp tới số điện thoại của gia sư từ máy của bạn. \n
+        - Để gia tăng chất lượng cho cộng đồng, nếu gia sư đã từng dạy tại gia đình bạn, hãy đánh giá chất lượng gia sư đó một cách trung thực bằng cách chọn sao ở phía cuối màn hình.
+    </string>
+    <string name="InsSearchUser">
+        - Khi bạn muốn tìm một gia sư phù hợp với điều kiện của mình, hãy chọn chức năng tìm kiếm gia sư.
+        Phần thiết lập tìm kiếm cho phép bạn có thể lọc theo giới tính, theo ngành nghề, theo lớp, theo môn và chọn sắp xếp theo thời gian từ mới đến cũ hoặc theo khoảng cách từ gần đến xa vị trí hiện tại của bạn. \n
+        - Để tiện lợi hơn cho việc tìm kiếm, bạn chỉ cần viết 1 chữ trong danh sách.
+        Ứng dụng sẽ gợi ý nội dung để bạn chọn lựa cho nhanh nhất.
+        Bạn có thể xem danh sách các phần tử của ngành nghề, lớp, môn tại phần danh sách cố định (trang 2). \n
+        - Sau khi nhấn nút tìm kiếm, bạn có thể nhìn thấy được danh sách gia sư phù hợp với điều kiện của mình trong phần kết quả tìm kiếm.
+        Giá trị đã lựa chọn để lọc được hiển thị phía trên cùng.
+        Chọn một trong số gia sư trong danh sách kết quả sẽ chuyển bạn đến phần thông tin gia sư (trang 4) như đã nói từ trước.
+    </string>
+    <string name="InsRecruitment">
+        - Khi bạn không tìm được gia sư nào ưng ý, hoặc không có thời gian để xem chi tiết danh sách từng gia sư, bạn có thể sử dụng chức năng đăng tìm gia sư.
+        Phần này giúp bạn tạo một bài viết mô tả các yêu cầu về gia sư mà bạn cần.
+        Khi các gia sư đăng nhập ứng dụng, họ sẽ đọc được bài đăng tìm và chủ động liên hệ với bạn. \n
+        - Chọn lớp và môn dựa trên danh sách cố định để tìm kiếm.
+        Hãy chú ý nhập thông tin thật chính xác, đúng với yêu cầu của bạn vì bài đăng của bạn sẽ không thể sửa.
+        Phần nội dung nên có lịch và thời gian làm việc cụ thể, cũng như yêu cầu riêng của cá nhân.
+        Tóm lại, viết càng chi tiết thì tỉ lệ gia sư liên hệ với bạn phù hợp yêu cầu càng cao. 
+    </string>
+    <string name="InsSignUp">
+        - Ứng dụng không yêu cầu bạn phải đăng ký thành viên khi sử dụng với tư cách là người cần gia sư.
+        Khi bạn muốn làm gia sư, bạn cần đăng ký một tài khoản trên hệ thống.
+        Chọn chức năng đăng ký trên danh mục để thực hiện. \n
+        - Hãy chú ý nhập thông tin cá nhân thật đầy đủ và chính xác, vì đây là thông tin mà khách hàng sẽ đối chiếu khi bạn đến dạy tại nhà họ.
+    </string>
+    <string name="InsSignIn">
+        - Sử dụng tên đăng nhập và mật khẩu đã đăng ký với hệ thống để đăng nhập. \n
+        - Khi đăng nhập thành công, ứng dụng sẽ lưu lại thông tin đăng nhập của bạn.
+        Lần sau chỉ cần nhấn nút đăng nhập mà không cần điền lại bất cứ thông tin nào.
+    </string>
+    <string name="InsLatestRecruitment">
+        - Sau khi đăng nhập thành công, ứng dụng hiểu bạn đang sử dụng trên tư cách là gia sư.
+        Phần tuyển dụng mới nhất là danh mục chính của gia sư.
+        Danh mục chức năng của ứng dụng cũng được thay đổi để chỉ dành riêng cho gia sư. \n
+        - Phần này hiển thị danh sách các bài đăng tuyển gia sư của người dùng trên tư cách là khách hàng đã đăng ở phần đăng tìm gia sư (trang 6).
+        Toàn bộ thông tin của bài đăng được hiển thị chi tiết.
+        Nếu bạn thấy mình phù hợp với yêu cầu công việc được mô tả, thì có thể chọn bài viết đó trên danh sách để gọi điện trực tiếp tới số điện thoại của khách hàng từ điện thoại của bạn.
+    </string>
+    <string name="InsUserProfile">
+        - Phần này cho phép bạn xem lại thông tin đã đăng ký.
+        Bạn có thể chỉnh sửa lại những thông tin được cho phép.
+        Nhấn nút lưu ở góc phải phía dưới màn hình để lưu lại những thông tin đã sửa đổi.
+    </string>
+    <string name="InsUserArticle">
+        - Phần này chính là bài viết giới thiệu bản thân mà khách hàng nhìn thấy đầu tiên khi khởi động ứng dụng (trang 3).
+        Sau khi đăng ký tài khoản, hãy tạo cho mình một bài viết giới thiệu bản thân thật chi tiết và đặc biệt để lấy được sự chú ý từ khách hàng.
+        Nếu bạn chưa tạo bài viết này, ứng dụng sẽ có thông báo mỗi khi bạn truy cập tới mục này.
+        Mặt khác, ứng dụng sẽ hiển thị thông tin bài viết đã có của bạn. \n
+        - Sau khi nhập hoặc chỉnh sửa bài viết, nhấn nút lưu ở góc dưới bên phải để lưu lại. \n
+        - Mỗi khi tạo mới hoặc chỉnh sửa bài viết, ứng dụng sẽ cập nhật thời gian, giúp bài viết của bạn được hiển thị đầu tiên trong danh sách của mục bài đăng mới nhất (trang 3) hoặc danh sách kết quả tìm kiếm được sắp xếp theo thời gian (trang 5).
+        Bạn phải có nhiều hơn 30 điểm cá nhân để thực hiện hành động này.
+    </string>
+    <string name="InsUserTransaction">
+        - Phần này cho biết bạn có bao nhiêu điểm cá nhân hiện tại cũng như lịch sử sử dụng điểm của bạn. \n
+        - Bạn có thể nhấn nút nạp ở phía dưới góc phải màn hình để gửi tin nhắn theo cú pháp đến tổng đài để nạp thêm điểm.
+    </string>
+    <string name="InsSignOut">
+        - Đăng xuất khỏi tài khoản gia sư.
+        Ứng dụng sẽ hiểu bạn là khách hàng và điều hướng bạn đến danh mục chính của người dùng đó là bài đăng mới nhất (trang 3).
+    </string>
+
+    <!--About us-->
+    <string name="AbsApplication">
+        Gia sư tốt là ứng dụng kết nối giữa người học và gia sư về các môn học theo nhu cầu của người học.
+        Ứng dụng cho phép tìm kiếm thông tin người giảng dạy tốt nhất, gần nhất và phù hợp nhất với người học, cũng như người có nhu cầu học đăng tìm người giảng dạy phù hợp với yêu cầu của bản thân.
+        Với hy vọng đưa lại cho khách hàng một trải nghiệm dịch vụ tiện ích thuận lợi nhất, Công ty INDC GROUP sẽ liên tục cập nhật thông tin phản hồi của khách hàng và có các bản nâng cấp phù hợp, thân thiện.
+    </string>
+    <string name="AbsCorporation">
+        Cty cổ phần tư vấn đầu tư INDC GROUP. \n
+        Địa chị: số 21, ngách ¾ Cầu Bươu, Tả Thanh Oai, Thanh Trì, Hà Nội. \n
+        Điện thoại liên hệ: 098 982 3388. \n
+        Email: indcgroup@gmail.com
+    </string>
+</resources>
