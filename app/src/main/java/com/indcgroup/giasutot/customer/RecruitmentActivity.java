@@ -23,17 +23,20 @@ import com.indcgroup.model.MyResponse;
 import com.indcgroup.loadresult.ApiCommunication;
 import com.indcgroup.loadresult.ApiResponse;
 import com.indcgroup.utility.Constants;
+import com.indcgroup.utility.GLOBAL;
 import com.indcgroup.utility.Utilities;
+
+import java.util.ArrayList;
 
 public class RecruitmentActivity extends AppCompatActivity implements ApiResponse, SuperDialogCloseListener, SuperDialogConfirmListener {
 
+    static int closeDialogFlag = 0;
     Utilities utl = new Utilities();
     ConnectivityManager conmng;
 
     AdView adView;
-    MultiAutoCompleteTextView atxtGrade, atxtSubject;
-    EditText edtAddress, edtPhone, edtContent;
-    Button btnSend;
+    EditText edtGrade, edtSubject, edtAddress, edtPhone, edtContent;
+    Button btnSelectGrade, btnSelectSubject, btnSend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,28 +46,49 @@ public class RecruitmentActivity extends AppCompatActivity implements ApiRespons
         conmng = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 
         adView = (AdView) findViewById(R.id.adView);
-        atxtGrade = (MultiAutoCompleteTextView) findViewById(R.id.atxtGrade);
-        atxtSubject = (MultiAutoCompleteTextView) findViewById(R.id.atxtSubject);
         edtAddress = (EditText) findViewById(R.id.edtAddress);
         edtPhone = (EditText) findViewById(R.id.edtPhone);
         edtContent = (EditText) findViewById(R.id.edtContent);
+        edtGrade = (EditText) findViewById(R.id.edtGrade);
+        edtSubject = (EditText) findViewById(R.id.edtSubject);
+        btnSelectGrade = (Button) findViewById(R.id.btnSelectGrade);
+        btnSelectSubject = (Button) findViewById(R.id.btnSelectSubject);
         btnSend = (Button) findViewById(R.id.btnSend);
 
         adView.loadAd(utl.createAdRequest());
 
-        atxtGrade.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
-        atxtSubject.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
+        btnSelectGrade.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                GLOBAL.CHECKED_CHECKBOXES = new ArrayList<>();
+                closeDialogFlag = 0;
+                utl.showSuperDialog(new SuperDialog(),
+                        getFragmentManager(),
+                        false,
+                        SuperDialog.DIALOG_TYPE_GRADE_SELECTION,
+                        "");
+            }
+        });
 
-        atxtGrade.setAdapter(new ArrayAdapter<String>(this, R.layout.adapter_simple_text, Constants.My_Grade));
-        atxtSubject.setAdapter(new ArrayAdapter<String>(this, R.layout.adapter_simple_text, Constants.My_Subject));
+        btnSelectSubject.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                GLOBAL.CHECKED_CHECKBOXES = new ArrayList<>();
+                closeDialogFlag = 1;
+                utl.showSuperDialog(new SuperDialog(),
+                        getFragmentManager(),
+                        false,
+                        SuperDialog.DIALOG_TYPE_SUBJECT_SELECTION,
+                        "");
+            }
+        });
 
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 //Validation
-                if (!utl.validationMultiAutoCompleteTextView(atxtGrade, atxtSubject) ||
-                        !utl.validationEditText(edtAddress, edtPhone, edtContent)) {
+                if (!utl.validationEditText(edtGrade, edtSubject, edtAddress, edtPhone, edtContent)) {
                     utl.showSuperDialog(new SuperDialog(),
                             getFragmentManager(),
                             false,
@@ -79,6 +103,7 @@ public class RecruitmentActivity extends AppCompatActivity implements ApiRespons
                     return;
                 }
 
+                closeDialogFlag = 2;
                 utl.showSuperDialog(new SuperDialog(),
                         getFragmentManager(),
                         false,
@@ -109,21 +134,33 @@ public class RecruitmentActivity extends AppCompatActivity implements ApiRespons
 
     @Override
     public void confirmButtonClicked() {
-        //Execute
-        ApiCommunication comm = new ApiCommunication(RecruitmentActivity.this, Constants.Alert_PleaseWait, "GET");
-        comm.delegate = RecruitmentActivity.this;
 
-        ModelRecruitment model = new ModelRecruitment();
-        model.Grade = atxtGrade.getText().toString();
-        model.Subject = atxtSubject.getText().toString();
-        model.Address = edtAddress.getText().toString();
-        model.Phone = edtPhone.getText().toString();
-        model.Content = utl.convertBreakline(edtContent.getText().toString(), 1);
+        if (closeDialogFlag == 2) {
+            //Execute
+            ApiCommunication comm = new ApiCommunication(RecruitmentActivity.this, Constants.Alert_PleaseWait, "GET");
+            comm.delegate = RecruitmentActivity.this;
 
-        String value = ModelRecruitment.toJson(model);
-        value = utl.base64Encode(value);
-        String url = String.format(getString(R.string.AddRecruitment), value);
-        comm.execute(url);
+            ModelRecruitment model = new ModelRecruitment();
+            model.Grade = edtGrade.getText().toString();
+            model.Subject = edtSubject.getText().toString();
+            model.Address = edtAddress.getText().toString();
+            model.Phone = edtPhone.getText().toString();
+            model.Content = utl.convertBreakline(edtContent.getText().toString(), 1);
+
+            String value = ModelRecruitment.toJson(model);
+            value = utl.base64Encode(value);
+            String url = String.format(getString(R.string.AddRecruitment), value);
+            comm.execute(url);
+        } else {
+            String value = "";
+            for (String item : GLOBAL.CHECKED_CHECKBOXES) {
+                value += item + ", ";
+            }
+            if (closeDialogFlag == 0)
+                edtGrade.setText(value);
+            else
+                edtSubject.setText(value);
+        }
     }
 
     @Override

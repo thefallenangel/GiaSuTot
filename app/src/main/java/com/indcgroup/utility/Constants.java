@@ -1,6 +1,7 @@
 package com.indcgroup.utility;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by thefa on 05/08/2017.
@@ -20,6 +21,7 @@ public class Constants {
     public static final String Success_SignIn = "Đăng nhập thành công!";
     public static final String Success_SignUp = "Đăng ký thành công!";
     public static final String Success_UpdateInfo = "Cập nhật thành công!";
+    public static final String Success_FirstRun = "Hãy đọc kỹ hướng dẫn sử dụng ở lần đầu tiên khởi chạy!";
 
     //Alert
     public static final String Alert_PleaseWait = "Vui lòng chờ...";
@@ -40,28 +42,29 @@ public class Constants {
     public static final String[] My_Position = new String[]{"Sinh viên", "Đã tốt nghiệp", "Giáo viên - Giảng viên"};
     public static final String[] My_Grade = new String[]{"Lớp 1", "Lớp 2", "Lớp 3", "Lớp 4", "Lớp 5", "Lớp 6", "Lớp 7", "Lớp 8", "Lớp 9", "Lớp 10", "Lớp 11", "Lớp 12",
             "Lớp tiếng Anh", "Lớp tiếng Trung", "Lớp tiếng Nhật", "Lớp tiếng Hàn", "Lớp tiếng Pháp", "Lớp tiếng Đức", "Lớp tiếng Nga", "Lớp tiếng Thái",
-            "Lớp bổ túc lái xe", "Lớp bơi lội", "Lớp võ thuật", "Lớp âm nhạc", "Lớp hội họa", "Lớp tennis", "Lớp khác"};
+            "Lớp bổ túc lái xe", "Lớp bơi lội", "Lớp võ thuật", "Lớp âm nhạc", "Lớp hội họa", "Lớp khác"};
     public static final String[] My_Subject = new String[]{"Toán", "Tin học", "Vật lý", "Hóa học", "Sinh học", "Ngữ văn", "Lịch sử", "Địa lý",
-            "Tiếng Anh", "Tiếng Trung", "Tiếng Nhật", "Tiếng Hàn", "Tiếng Pháp", "Tiếng Đức", "Tiếng Nga",
-            "Võ thuật", "Bơi lội", "Âm nhạc", "Hội họa", "Bóng chuyền", "Bóng rổ", "Môn khác"};
+            "Tiếng Anh", "Tiếng Trung", "Tiếng Nhật", "Tiếng Hàn", "Tiếng Pháp", "Tiếng Đức", "Tiếng Nga", "Tiếng Thái",
+            "Lái xe", "Bơi lội", "Võ thuật", "Âm nhạc", "Hội họa", "Môn khác"};
 
     //ArrayList
     public static ArrayList<String> generateGender() {
-        ArrayList<String> result = new ArrayList<>();
-        result.add("-- Tất cả --");
-        result.add("Nam");
-        result.add("Nữ");
-
+        ArrayList<String> result = new ArrayList<>(Arrays.asList(My_Gender));
+        result.add(0, "-- Tất cả --");
         return result;
     }
 
     public static ArrayList<String> generatePosition() {
-        ArrayList<String> result = new ArrayList<>();
-        result.add("-- Tất cả --");
-        result.add("Sinh viên");
-        result.add("Đã tốt nghiệp");
-        result.add("Giáo viên - Giảng viên");
-
+        ArrayList<String> result = new ArrayList<>(Arrays.asList(My_Position));
+        result.add(0, "-- Tất cả --");
         return result;
+    }
+
+    public static ArrayList<String> generateGrade() {
+        return new ArrayList<>(Arrays.asList(My_Grade));
+    }
+
+    public static ArrayList<String> generateSubject() {
+        return new ArrayList<>(Arrays.asList(My_Subject));
     }
 }

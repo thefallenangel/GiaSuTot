@@ -17,6 +17,7 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
+import android.text.format.Time;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.EditText;
@@ -199,7 +200,7 @@ public class Utilities {
     public AdRequest createAdRequest() {
         //Delete test device when release
         return new AdRequest.Builder()
-                .addTestDevice("5DAE324D3D29A5FFB428BCEA6EA22D60")
+                //.addTestDevice("5DAE324D3D29A5FFB428BCEA6EA22D60")
                 //.addTestDevice("D088A3B8D50FDD9B62EDCDE126160F29")
                 .build();
     }
@@ -209,5 +210,22 @@ public class Utilities {
         adPage.setAdUnitId(adUnitId);
         adPage.loadAd(createAdRequest());
         return adPage;
+    }
+
+    public String createCurrentDateTime() {
+        String result = "";
+        Time now = new Time();
+        now.setToNow();
+
+        String day = String.valueOf(now.monthDay);
+        String month = String.valueOf(now.month + 1);
+        month = month.length() < 2 ? "0" + month : month;
+        String year = String.valueOf(now.year);
+        String hour = String.valueOf(now.hour);
+        String minute = String.valueOf(now.minute);
+
+        result += day + "-" + month + "-" + year + " " + hour + ":" + minute;
+
+        return result;
     }
 }

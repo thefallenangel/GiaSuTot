@@ -59,6 +59,17 @@
                     android:text="Đăng nhập"
                     android:textSize="@dimen/text_size" />
 
+                <TextView
+                    android:id="@+id/txtForgetPassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="@dimen/margin_normal"
+                    android:text="Quên mật khẩu"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size"
+                    android:textStyle="bold|italic" />
+
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

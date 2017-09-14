@@ -28,6 +28,7 @@ public class SearchingUserResultActivity extends AppCompatActivity implements Ap
     Utilities utl = new Utilities();
     static boolean isDownloading = false;
     static boolean isUserScroll = false;
+    boolean isAllDownloaded = false;
     static ArrayList<ModelArticle> data;
     static ModelArticle model;
     SuperAdapter adapter = null;
@@ -87,8 +88,8 @@ public class SearchingUserResultActivity extends AppCompatActivity implements Ap
                     if (lstArticle.getLastVisiblePosition() == lstArticle.getAdapter().getCount() - 1 &&
                             lstArticle.getChildAt(lstArticle.getChildCount() - 1).getBottom() <= lstArticle.getHeight()) {
 
-                        //Only load more data when scrolling is the behavior of user and there are no current request
-                        if (isUserScroll && !isDownloading) {
+                        //Load more data when: scrolling is user's behaviour, there is no request at this moment, when still have data to download
+                        if (isUserScroll && !isDownloading && !isAllDownloaded) {
                             ApiCommunication comm = new ApiCommunication(SearchingUserResultActivity.this, Constants.Alert_DownloadArticle, "GET");
                             comm.delegate = SearchingUserResultActivity.this;
 
@@ -126,6 +127,7 @@ public class SearchingUserResultActivity extends AppCompatActivity implements Ap
             for (ModelArticle item : extraList) {
                 item.Content = utl.convertBreakline(item.Content, 0);
             }
+            isAllDownloaded = extraList.size() <= 0;
 
             data.addAll(extraList);
             adapter.notifyDataSetChanged();

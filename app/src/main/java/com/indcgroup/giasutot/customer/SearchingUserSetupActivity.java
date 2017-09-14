@@ -5,17 +5,16 @@ import android.net.ConnectivityManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.MultiAutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.indcgroup.adapter.SuperAdapter;
 import com.indcgroup.dialog.SuperDialog;
+import com.indcgroup.dialog.SuperDialogConfirmListener;
 import com.indcgroup.giasutot.R;
 import com.indcgroup.model.ModelArticle;
 import com.indcgroup.model.MyResponse;
@@ -27,16 +26,17 @@ import com.indcgroup.utility.Utilities;
 
 import java.util.ArrayList;
 
-public class SearchingUserSetupActivity extends AppCompatActivity implements ApiResponse {
+public class SearchingUserSetupActivity extends AppCompatActivity implements ApiResponse, SuperDialogConfirmListener {
 
+    static int closeDialogFlag = 0;
     Utilities utl = new Utilities();
     ConnectivityManager conmng;
 
     AdView adView;
     Spinner spinGender, spinPosition;
-    MultiAutoCompleteTextView atxtGrade, atxtSubject;
     RadioButton radTime, radDistance;
-    Button btnSearch;
+    Button btnSelectGrade, btnSelectSubject, btnSearch;
+    EditText edtGrade, edtSubject;
 
     static ModelArticle model;
 
@@ -50,29 +50,51 @@ public class SearchingUserSetupActivity extends AppCompatActivity implements Api
         adView = (AdView) findViewById(R.id.adView);
         spinGender = (Spinner) findViewById(R.id.spinGender);
         spinPosition = (Spinner) findViewById(R.id.spinPosition);
-        atxtGrade = (MultiAutoCompleteTextView) findViewById(R.id.atxtGrade);
-        atxtSubject = (MultiAutoCompleteTextView) findViewById(R.id.atxtSubject);
         radTime = (RadioButton) findViewById(R.id.radTime);
         radDistance = (RadioButton) findViewById(R.id.radDistance);
+        edtGrade = (EditText) findViewById(R.id.edtGrade);
+        edtSubject = (EditText) findViewById(R.id.edtSubject);
+        btnSelectGrade = (Button) findViewById(R.id.btnSelectGrade);
+        btnSelectSubject = (Button) findViewById(R.id.btnSelectSubject);
         btnSearch = (Button) findViewById(R.id.btnSearch);
 
         adView.loadAd(utl.createAdRequest());
 
-        atxtGrade.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
-        atxtSubject.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
-
         spinGender.setAdapter(new SuperAdapter(SuperAdapter.TYPE_SIMPLE, this, Constants.generateGender()));
         spinPosition.setAdapter(new SuperAdapter(SuperAdapter.TYPE_SIMPLE, this, Constants.generatePosition()));
-        atxtGrade.setAdapter(new ArrayAdapter<String>(this, R.layout.adapter_simple_text, Constants.My_Grade));
-        atxtSubject.setAdapter(new ArrayAdapter<String>(this, R.layout.adapter_simple_text, Constants.My_Subject));
 
+        btnSelectGrade.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                GLOBAL.CHECKED_CHECKBOXES = new ArrayList<>();
+                closeDialogFlag = 0;
+                utl.showSuperDialog(new SuperDialog(),
+                        getFragmentManager(),
+                        false,
+                        SuperDialog.DIALOG_TYPE_GRADE_SELECTION,
+                        "");
+            }
+        });
+
+        btnSelectSubject.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                GLOBAL.CHECKED_CHECKBOXES = new ArrayList<>();
+                closeDialogFlag = 1;
+                utl.showSuperDialog(new SuperDialog(),
+                        getFragmentManager(),
+                        false,
+                        SuperDialog.DIALOG_TYPE_SUBJECT_SELECTION,
+                        "");
+            }
+        });
 
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 //Validation
-                if (!utl.validationMultiAutoCompleteTextView(atxtGrade, atxtSubject)) {
+                if (!utl.validationEditText(edtSubject, edtGrade)) {
                     utl.showSuperDialog(new SuperDialog(),
                             getFragmentManager(),
                             false,
@@ -98,8 +120,8 @@ public class SearchingUserSetupActivity extends AppCompatActivity implements Api
                 model.Longitude = GLOBAL.LONGITUDE;
                 model.Gender = spinGender.getSelectedItem().toString().contains("-") ? "" : spinGender.getSelectedItem().toString();
                 model.Position = spinPosition.getSelectedItem().toString().contains("-") ? "" : spinPosition.getSelectedItem().toString();
-                model.Grade = atxtGrade.getText().toString();
-                model.Subject = atxtSubject.getText().toString();
+                model.Grade = edtGrade.getText().toString();
+                model.Subject = edtSubject.getText().toString();
 
                 String value = ModelArticle.toJson(model);
                 value = utl.base64Encode(value);
@@ -125,5 +147,17 @@ public class SearchingUserSetupActivity extends AppCompatActivity implements Api
         } else {
             Toast.makeText(SearchingUserSetupActivity.this, result.ResponseMessage, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void confirmButtonClicked() {
+        String value = "";
+        for (String item : GLOBAL.CHECKED_CHECKBOXES) {
+            value += item + ", ";
+        }
+        if (closeDialogFlag == 0)
+            edtGrade.setText(value);
+        else
+            edtSubject.setText(value);
     }
 }

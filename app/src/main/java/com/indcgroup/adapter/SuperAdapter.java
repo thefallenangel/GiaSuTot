@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,6 +19,7 @@ import com.indcgroup.loadimage.ImageCommunication;
 import com.indcgroup.model.ModelArticle;
 import com.indcgroup.model.ModelRecruitment;
 import com.indcgroup.model.ModelTransaction;
+import com.indcgroup.utility.GLOBAL;
 import com.indcgroup.utility.Utilities;
 
 import java.util.ArrayList;
@@ -28,6 +31,7 @@ import java.util.ArrayList;
 public class SuperAdapter extends BaseAdapter {
 
     public static final String TYPE_SIMPLE = "simple";
+    public static final String TYPE_MULTI = "multi";
     public static final String TYPE_ARTICLE = "article";
     public static final String TYPE_RECRUITMENT = "recruitment";
     public static final String TYPE_TRANSACTION = "transaction";
@@ -125,10 +129,28 @@ public class SuperAdapter extends BaseAdapter {
                 view = LayoutInflater.from(mContext).inflate(R.layout.adapter_simple_text, viewGroup, false);
 
             TextView txtItem = view.findViewById(R.id.txtItem);
-
             String item = (String) mList.get(i);
-
             txtItem.setText(item);
+
+        } else if (mType.equals(TYPE_MULTI)) {
+            if (view == null)
+                view = LayoutInflater.from(mContext).inflate(R.layout.adapter_multi_checkbox, viewGroup, false);
+
+            CheckBox chbItem = view.findViewById(R.id.chbItem);
+            String item = (String) mList.get(i);
+            chbItem.setText(item);
+
+            chbItem.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                    CheckBox item = (CheckBox) compoundButton;
+                    if (isChecked) {
+                        GLOBAL.CHECKED_CHECKBOXES.add(item.getText().toString());
+                    } else {
+                        GLOBAL.CHECKED_CHECKBOXES.remove(item.getText().toString());
+                    }
+                }
+            });
 
         }
         return view;

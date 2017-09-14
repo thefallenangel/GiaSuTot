@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements ApiResponse, Supe
 
     static boolean isDownloading = false;
     static boolean isUserScroll = false;
+    boolean isAllDownloaded = false;
     static boolean isFirstLoad = false;
     static ArrayList<ModelArticle> data;
     ConnectivityManager conmng;
@@ -133,8 +134,8 @@ public class MainActivity extends AppCompatActivity implements ApiResponse, Supe
                     if (lstArticle.getLastVisiblePosition() == lstArticle.getAdapter().getCount() - 1 &&
                             lstArticle.getChildAt(lstArticle.getChildCount() - 1).getBottom() <= lstArticle.getHeight()) {
 
-                        //Only load more data when scrolling is the behavior of user and there are no current request
-                        if (isUserScroll && !isDownloading) {
+                        //Load more data when: scrolling is user's behaviour, there is no request at this moment, when still have data to download
+                        if (isUserScroll && !isDownloading && !isAllDownloaded) {
                             isDownloading = true;
 
                             ApiCommunication comm = new ApiCommunication(MainActivity.this, Constants.Alert_DownloadArticle, "GET");
@@ -184,6 +185,8 @@ public class MainActivity extends AppCompatActivity implements ApiResponse, Supe
                 for (ModelArticle item : extraList) {
                     item.Content = utl.convertBreakline(item.Content, 0);
                 }
+                isAllDownloaded = extraList.size() <= 0;
+
                 data.addAll(extraList);
                 adapter.notifyDataSetChanged();
                 lstArticle.invalidateViews();

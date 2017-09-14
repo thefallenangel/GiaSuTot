@@ -14,7 +14,7 @@
             <item
                 android:id="@+id/nav_userpoint"
                 android:icon="@drawable/ic_account_balance_wallet"
-                android:title="Điểm của tôi" />
+                android:title="Điểm cá nhân" />
             <item
                 android:id="@+id/nav_signout"
                 android:icon="@drawable/ic_arrow_back"

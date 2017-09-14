@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
@@ -35,6 +36,7 @@ public class SignInActivity extends AppCompatActivity implements ApiResponse, Su
     AdView adView;
     EditText edtUsername, edtPassword;
     Button btnSignIn;
+    TextView txtForgetPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,7 @@ public class SignInActivity extends AppCompatActivity implements ApiResponse, Su
         edtUsername = (EditText) findViewById(R.id.edtUsername);
         edtPassword = (EditText) findViewById(R.id.edtPassword);
         btnSignIn = (Button) findViewById(R.id.btnSignIn);
+        txtForgetPassword = (TextView) findViewById(R.id.txtForgetPassword);
 
         adView.loadAd(utl.createAdRequest());
 
@@ -93,6 +96,13 @@ public class SignInActivity extends AppCompatActivity implements ApiResponse, Su
             }
         });
 
+        txtForgetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SignInActivity.this, ForgetPasswordActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 

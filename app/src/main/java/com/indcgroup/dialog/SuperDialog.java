@@ -9,10 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.indcgroup.adapter.SuperAdapter;
 import com.indcgroup.giasutot.R;
+import com.indcgroup.utility.Constants;
 
 /**
  * Created by thefa on 05/08/2017.
@@ -23,6 +26,8 @@ public class SuperDialog extends DialogFragment {
     public static final int DIALOG_TYPE_ERROR = 0;
     public static final int DIALOG_TYPE_SUCCESS = 1;
     public static final int DIALOG_TYPE_CONFIRM = 2;
+    public static final int DIALOG_TYPE_GRADE_SELECTION = 3;
+    public static final int DIALOG_TYPE_SUBJECT_SELECTION = 4;
 
     public boolean mRedirect = false;
     public int mType;
@@ -92,6 +97,39 @@ public class SuperDialog extends DialogFragment {
                 }
             });
             btnYes.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Activity activity = getActivity();
+                    if (activity instanceof SuperDialogConfirmListener) {
+                        ((SuperDialogConfirmListener) activity).confirmButtonClicked();
+                        getDialog().dismiss();
+                    }
+                }
+            });
+
+            return rootView;
+        } else if (mType == DIALOG_TYPE_GRADE_SELECTION || mType == DIALOG_TYPE_SUBJECT_SELECTION) {
+
+            //Only this dialog allow cancelable
+            getDialog().setCancelable(true);
+            getDialog().setCanceledOnTouchOutside(true);
+
+            View rootView = inflater.inflate(R.layout.dialog_multi_selection, container, false);
+
+            GridView grdItem = rootView.findViewById(R.id.grdDialogSelection);
+            Button btnConfirm = rootView.findViewById(R.id.btnDialogConfirm);
+
+            if (mType == DIALOG_TYPE_GRADE_SELECTION) {
+                getDialog().setTitle("Chọn lớp");
+                SuperAdapter adapter = new SuperAdapter(SuperAdapter.TYPE_MULTI, getActivity(), Constants.generateGrade());
+                grdItem.setAdapter(adapter);
+            } else if (mType == DIALOG_TYPE_SUBJECT_SELECTION) {
+                getDialog().setTitle("Chọn môn");
+                SuperAdapter adapter = new SuperAdapter(SuperAdapter.TYPE_MULTI, getActivity(), Constants.generateSubject());
+                grdItem.setAdapter(adapter);
+            }
+
+            btnConfirm.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Activity activity = getActivity();

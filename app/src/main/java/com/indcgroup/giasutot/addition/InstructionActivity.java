@@ -124,39 +124,36 @@ public class InstructionActivity extends AppCompatActivity {
                     txtInstruction.setText(getString(R.string.InsPermission));
                     break;
                 case 1:
-                    txtInstruction.setText(getString(R.string.InsArray));
-                    break;
-                case 2:
                     txtInstruction.setText(getString(R.string.InsLatestArticle));
                     break;
-                case 3:
+                case 2:
                     txtInstruction.setText(getString(R.string.InsUserInformation));
                     break;
-                case 4:
+                case 3:
                     txtInstruction.setText(getString(R.string.InsSearchUser));
                     break;
-                case 5:
+                case 4:
                     txtInstruction.setText(getString(R.string.InsRecruitment));
                     break;
-                case 6:
+                case 5:
                     txtInstruction.setText(getString(R.string.InsSignUp));
                     break;
-                case 7:
+                case 6:
                     txtInstruction.setText(getString(R.string.InsSignIn));
                     break;
-                case 8:
+                case 7:
                     txtInstruction.setText(getString(R.string.InsLatestRecruitment));
                     break;
-                case 9:
+                case 8:
                     txtInstruction.setText(getString(R.string.InsUserProfile));
                     break;
-                case 10:
+                case 9:
                     txtInstruction.setText(getString(R.string.InsUserArticle));
                     break;
-                case 11:
+                case 10:
                     txtInstruction.setText(getString(R.string.InsUserTransaction));
                     break;
-                case 12:
+                case 11:
                     txtInstruction.setText(getString(R.string.InsSignOut));
                     break;
                 default:
@@ -180,8 +177,8 @@ public class InstructionActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            // Show 13 total pages.
-            return 13;
+            // Show 12 total pages.
+            return 12;
         }
 
         @Override
@@ -190,28 +187,26 @@ public class InstructionActivity extends AppCompatActivity {
                 case 0:
                     return "Quyền và thiết lập quyền";
                 case 1:
-                    return "Các danh sách cố định";
-                case 2:
                     return "Bài đăng mới nhất";
-                case 3:
+                case 2:
                     return "Thông tin gia sư";
-                case 4:
+                case 3:
                     return "Tìm kiếm gia sư";
-                case 5:
+                case 4:
                     return "Đăng tìm gia sư";
-                case 6:
+                case 5:
                     return "Đăng ký thành viên";
-                case 7:
+                case 6:
                     return "Đăng nhập";
-                case 8:
+                case 7:
                     return "Tuyển dụng mới nhất";
-                case 9:
+                case 8:
                     return "Thông tin cá nhân";
-                case 10:
+                case 9:
                     return "Thông tin bài viết";
-                case 11:
+                case 10:
                     return "Điểm của tôi";
-                case 12:
+                case 11:
                     return "Đăng xuất";
             }
             return null;

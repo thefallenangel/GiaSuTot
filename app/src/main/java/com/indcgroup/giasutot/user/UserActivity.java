@@ -49,6 +49,7 @@ public class UserActivity extends AppCompatActivity
     static boolean isFirstLoad = false;
     static boolean isUserScroll = false;
     static boolean isDownloading = false;
+    boolean isAllDownloaded = false;
     static ArrayList<ModelRecruitment> data;
     SuperAdapter adapter = null;
 
@@ -152,8 +153,8 @@ public class UserActivity extends AppCompatActivity
                     if (lstRecruitment.getLastVisiblePosition() == lstRecruitment.getAdapter().getCount() - 1 &&
                             lstRecruitment.getChildAt(lstRecruitment.getChildCount() - 1).getBottom() <= lstRecruitment.getHeight()) {
 
-                        //Only load more data when scrolling is the behavior of user and there are no current load more request
-                        if (isUserScroll && !isDownloading) {
+                        //Load more data when: scrolling is user's behaviour, there is no request at this moment, when still have data to download
+                        if (isUserScroll && !isDownloading && !isAllDownloaded) {
                             isDownloading = true;
                             ApiCommunication comm = new ApiCommunication(UserActivity.this, Constants.Alert_DownloadRecruitment, "GET");
                             comm.delegate = UserActivity.this;
@@ -258,6 +259,7 @@ public class UserActivity extends AppCompatActivity
                 for (ModelRecruitment item : extraList) {
                     item.Content = utl.convertBreakline(item.Content, 0);
                 }
+                isAllDownloaded = extraList.size() <= 0;
 
                 data.addAll(extraList);
                 adapter.notifyDataSetChanged();

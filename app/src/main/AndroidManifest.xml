@@ -2,11 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.indcgroup.giasutot">
 
-    <!--Normal permission-->
+    <!-- Normal permission -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-    <!--Dangerous permission-->
+    <!-- Dangerous permission -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -101,7 +101,11 @@
             android:label="@string/about_us"
             android:parentActivityName=".customer.MainActivity"
             android:screenOrientation="portrait" />
-
+        <activity
+            android:name=".customer.ForgetPasswordActivity"
+            android:label="@string/forget_password"
+            android:parentActivityName=".customer.SignInActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

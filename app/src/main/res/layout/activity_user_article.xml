@@ -37,23 +37,54 @@
                     android:textSize="@dimen/text_size"
                     android:textStyle="bold|italic" />
 
-                <MultiAutoCompleteTextView
-                    android:id="@+id/atxtGrade"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_low"
-                    android:completionThreshold="1"
-                    android:hint="Chọn lớp có thể dạy..."
-                    android:textSize="@dimen/text_size" />
+                    android:layout_margin="@dimen/margin_normal"
+                    android:orientation="horizontal">
 
-                <MultiAutoCompleteTextView
-                    android:id="@+id/atxtSubject"
+                    <Button
+                        android:id="@+id/btnSelectGrade"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="Chọn lớp"
+                        android:textColor="@color/colorText"
+                        android:textSize="12sp" />
+
+
+                    <EditText
+                        android:id="@+id/edtGrade"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_normal"
+                        android:focusable="false"
+                        android:textSize="@dimen/text_size" />
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_low"
-                    android:completionThreshold="1"
-                    android:hint="Chọn môn có thể dạy..."
-                    android:textSize="@dimen/text_size" />
+                    android:layout_margin="@dimen/margin_normal"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnSelectSubject"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="Chọn môn"
+                        android:textColor="@color/colorText"
+                        android:textSize="12sp" />
+
+                    <EditText
+                        android:id="@+id/edtSubject"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_normal"
+                        android:focusable="false"
+                        android:textSize="@dimen/text_size" />
+                </LinearLayout>
 
                 <EditText
                     android:id="@+id/edtContent"

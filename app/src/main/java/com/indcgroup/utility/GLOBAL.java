@@ -2,6 +2,8 @@ package com.indcgroup.utility;
 
 import com.indcgroup.model.ModelAuthentication;
 
+import java.util.ArrayList;
+
 /**
  * Created by thefa on 16/08/2017.
  */
@@ -19,5 +21,8 @@ public class GLOBAL {
 
     //Current point
     public static int POINT;
+
+    //Selected checkbox list
+    public static ArrayList<String> CHECKED_CHECKBOXES;
 
 }

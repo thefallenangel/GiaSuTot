@@ -1,25 +1,21 @@
 package com.indcgroup.giasutot.user;
 
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.Time;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.MultiAutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdView;
 import com.indcgroup.dialog.SuperDialog;
-import com.indcgroup.dialog.SuperDialogCloseListener;
 import com.indcgroup.dialog.SuperDialogConfirmListener;
 import com.indcgroup.giasutot.R;
-import com.indcgroup.giasutot.customer.SignInActivity;
-import com.indcgroup.giasutot.customer.SignUpActivity;
+
 import com.indcgroup.model.ModelArticle;
 import com.indcgroup.model.MyResponse;
 import com.indcgroup.loadresult.ApiCommunication;
@@ -28,17 +24,20 @@ import com.indcgroup.utility.Constants;
 import com.indcgroup.utility.GLOBAL;
 import com.indcgroup.utility.Utilities;
 
+import java.util.ArrayList;
+
 
 public class UserArticleActivity extends AppCompatActivity implements ApiResponse, SuperDialogConfirmListener {
 
+    static int closeDialogFlag = 0;
     Utilities utl = new Utilities();
     ConnectivityManager conmng;
     int requestType = 0;
 
     AdView adView;
     TextView txtCreatedDate;
-    MultiAutoCompleteTextView atxtGrade, atxtSubject;
-    EditText edtContent;
+    EditText edtGrade, edtSubject, edtContent;
+    Button btnSelectGrade, btnSelectSubject;
     FloatingActionButton fabSave;
 
     @Override
@@ -50,18 +49,14 @@ public class UserArticleActivity extends AppCompatActivity implements ApiRespons
 
         adView = (AdView) findViewById(R.id.adView);
         txtCreatedDate = (TextView) findViewById(R.id.txtCreatedDate);
-        atxtGrade = (MultiAutoCompleteTextView) findViewById(R.id.atxtGrade);
-        atxtSubject = (MultiAutoCompleteTextView) findViewById(R.id.atxtSubject);
+        edtGrade = (EditText) findViewById(R.id.edtGrade);
+        edtSubject = (EditText) findViewById(R.id.edtSubject);
         edtContent = (EditText) findViewById(R.id.edtContent);
+        btnSelectGrade = (Button) findViewById(R.id.btnSelectGrade);
+        btnSelectSubject = (Button) findViewById(R.id.btnSelectSubject);
         fabSave = (FloatingActionButton) findViewById(R.id.fabSave);
 
         adView.loadAd(utl.createAdRequest());
-
-        atxtGrade.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
-        atxtSubject.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
-
-        atxtGrade.setAdapter(new ArrayAdapter<String>(this, R.layout.adapter_simple_text, Constants.My_Grade));
-        atxtSubject.setAdapter(new ArrayAdapter<String>(this, R.layout.adapter_simple_text, Constants.My_Subject));
 
         //Check internet connection
         if (!utl.checkInternetConnection(conmng)) {
@@ -79,6 +74,33 @@ public class UserArticleActivity extends AppCompatActivity implements ApiRespons
         String url = String.format(getString(R.string.GetUserArticle), value);
         comm.execute(url);
 
+        btnSelectGrade.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                GLOBAL.CHECKED_CHECKBOXES = new ArrayList<>();
+                closeDialogFlag = 0;
+                utl.showSuperDialog(new SuperDialog(),
+                        getFragmentManager(),
+                        false,
+                        SuperDialog.DIALOG_TYPE_GRADE_SELECTION,
+                        "");
+            }
+        });
+
+        btnSelectSubject.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                GLOBAL.CHECKED_CHECKBOXES = new ArrayList<>();
+                closeDialogFlag = 1;
+                utl.showSuperDialog(new SuperDialog(),
+                        getFragmentManager(),
+                        false,
+                        SuperDialog.DIALOG_TYPE_SUBJECT_SELECTION,
+                        "");
+            }
+        });
+
+
         fabSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,7 +111,7 @@ public class UserArticleActivity extends AppCompatActivity implements ApiRespons
                 }
 
                 //Validation
-                if (!utl.validationEditText(edtContent) && !utl.validationMultiAutoCompleteTextView(atxtGrade, atxtSubject)) {
+                if (!utl.validationEditText(edtGrade, edtSubject, edtContent)) {
                     utl.showSuperDialog(new SuperDialog(),
                             getFragmentManager(),
                             false,
@@ -98,6 +120,7 @@ public class UserArticleActivity extends AppCompatActivity implements ApiRespons
                     return;
                 }
 
+                closeDialogFlag = 2;
                 utl.showSuperDialog(new SuperDialog(),
                         getFragmentManager(),
                         false,
@@ -111,8 +134,8 @@ public class UserArticleActivity extends AppCompatActivity implements ApiRespons
 
     void showUserArticle(ModelArticle model) {
         txtCreatedDate.setText("Ngày cập nhật: " + model.CreatedDate);
-        atxtGrade.setText(model.Grade);
-        atxtSubject.setText(model.Subject);
+        edtGrade.setText(model.Grade);
+        edtSubject.setText(model.Subject);
         edtContent.setText(utl.convertBreakline(model.Content, 0));
     }
 
@@ -136,6 +159,8 @@ public class UserArticleActivity extends AppCompatActivity implements ApiRespons
                         true,
                         SuperDialog.DIALOG_TYPE_SUCCESS,
                         Constants.Success_UpdateInfo);
+                txtCreatedDate.setText("Ngày cập nhật: " + utl.createCurrentDateTime());
+
             } else {
                 utl.showSuperDialog(new SuperDialog(),
                         getFragmentManager(),
@@ -148,19 +173,30 @@ public class UserArticleActivity extends AppCompatActivity implements ApiRespons
 
     @Override
     public void confirmButtonClicked() {
-        ApiCommunication comm = new ApiCommunication(UserArticleActivity.this, Constants.Alert_PleaseWait, "GET");
-        comm.delegate = UserArticleActivity.this;
-        requestType = 1;
+        if (closeDialogFlag == 2) {
+            ApiCommunication comm = new ApiCommunication(UserArticleActivity.this, Constants.Alert_PleaseWait, "GET");
+            comm.delegate = UserArticleActivity.this;
+            requestType = 1;
 
-        ModelArticle model = new ModelArticle();
-        model.UserID = GLOBAL.USER.UserID;
-        model.Grade = atxtGrade.getText().toString();
-        model.Subject = atxtSubject.getText().toString();
-        model.Content = utl.convertBreakline(edtContent.getText().toString(), 1);
+            ModelArticle model = new ModelArticle();
+            model.UserID = GLOBAL.USER.UserID;
+            model.Grade = edtGrade.getText().toString();
+            model.Subject = edtSubject.getText().toString();
+            model.Content = utl.convertBreakline(edtContent.getText().toString(), 1);
 
-        String value = ModelArticle.toJson(model);
-        value = utl.base64Encode(value);
-        String url = String.format(getString(R.string.AddUserArticle), value);
-        comm.execute(url);
+            String value = ModelArticle.toJson(model);
+            value = utl.base64Encode(value);
+            String url = String.format(getString(R.string.AddUserArticle), value);
+            comm.execute(url);
+        } else {
+            String value = "";
+            for (String item : GLOBAL.CHECKED_CHECKBOXES) {
+                value += item + ", ";
+            }
+            if (closeDialogFlag == 0)
+                edtGrade.setText(value);
+            else
+                edtSubject.setText(value);
+        }
     }
 }
