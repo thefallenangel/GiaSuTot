@@ -28,7 +28,10 @@ import java.util.ArrayList;
 
 public class SearchingUserSetupActivity extends AppCompatActivity implements ApiResponse, SuperDialogConfirmListener {
 
-    static int closeDialogFlag = 0;
+    static final int CONFIRM_SELECT_GRADE = 0;
+    static final int CONFIRM_SELECT_SUBJECT = 1;
+
+    static int confirmFlag = 0;
     Utilities utl = new Utilities();
     ConnectivityManager conmng;
 
@@ -66,8 +69,8 @@ public class SearchingUserSetupActivity extends AppCompatActivity implements Api
         btnSelectGrade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                confirmFlag = CONFIRM_SELECT_GRADE;
                 GLOBAL.CHECKED_CHECKBOXES = new ArrayList<>();
-                closeDialogFlag = 0;
                 utl.showSuperDialog(new SuperDialog(),
                         getFragmentManager(),
                         false,
@@ -79,8 +82,8 @@ public class SearchingUserSetupActivity extends AppCompatActivity implements Api
         btnSelectSubject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                confirmFlag = CONFIRM_SELECT_SUBJECT;
                 GLOBAL.CHECKED_CHECKBOXES = new ArrayList<>();
-                closeDialogFlag = 1;
                 utl.showSuperDialog(new SuperDialog(),
                         getFragmentManager(),
                         false,
@@ -155,9 +158,9 @@ public class SearchingUserSetupActivity extends AppCompatActivity implements Api
         for (String item : GLOBAL.CHECKED_CHECKBOXES) {
             value += item + ", ";
         }
-        if (closeDialogFlag == 0)
+        if (confirmFlag == CONFIRM_SELECT_GRADE)
             edtGrade.setText(value);
-        else
+        else if (confirmFlag == CONFIRM_SELECT_SUBJECT)
             edtSubject.setText(value);
     }
 }

@@ -1,6 +1,7 @@
 package com.indcgroup.giasutot.user;
 
 import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
@@ -24,6 +25,7 @@ import android.widget.Toast;
 import com.google.android.gms.ads.AdView;
 import com.indcgroup.adapter.SuperAdapter;
 import com.indcgroup.dialog.SuperDialog;
+import com.indcgroup.dialog.SuperDialogCloseListener;
 import com.indcgroup.dialog.SuperDialogConfirmListener;
 import com.indcgroup.giasutot.R;
 import com.indcgroup.giasutot.addition.AboutUsActivity;
@@ -42,14 +44,20 @@ import com.indcgroup.utility.Utilities;
 import java.util.ArrayList;
 
 public class UserActivity extends AppCompatActivity
-        implements ApiResponse, SuperDialogConfirmListener, NavigationView.OnNavigationItemSelectedListener {
+        implements ApiResponse, SuperDialogConfirmListener, SuperDialogCloseListener, NavigationView.OnNavigationItemSelectedListener {
 
-    Utilities utl = new Utilities();
-    ConnectivityManager conmng;
-    static boolean isFirstLoad = false;
+    static final int DOWNLOAD_CHECK_ARTICLE = 0;
+    static final int DOWNLOAD_GET_FIRST_RECRUITMENT = 1;
+    static final int DOWNLOAD_LOAD_MORE_RECRUITMENT = 2;
+
+    static int downloadFlag = 0;
+
     static boolean isUserScroll = false;
     static boolean isDownloading = false;
     boolean isAllDownloaded = false;
+
+    Utilities utl = new Utilities();
+    ConnectivityManager conmng;
     static ArrayList<ModelRecruitment> data;
     SuperAdapter adapter = null;
 
@@ -89,15 +97,15 @@ public class UserActivity extends AppCompatActivity
             return;
         }
 
-        //Execute
-        isFirstLoad = true;
-        ApiCommunication comm = new ApiCommunication(UserActivity.this, Constants.Alert_DownloadRecruitment, "GET");
+        //Check user article
+        downloadFlag = DOWNLOAD_CHECK_ARTICLE;
+        ApiCommunication comm = new ApiCommunication(UserActivity.this, Constants.Alert_PleaseWait, "GET");
         comm.delegate = UserActivity.this;
 
-        String value = utl.base64Encode("0");
-        String url = String.format(getString(R.string.GetLatestRecruitmentURL), value);
+        String value = String.valueOf(GLOBAL.USER.UserID);
+        value = utl.base64Encode(value);
+        String url = String.format(getString(R.string.CheckUserArticle), value);
         comm.execute(url);
-
     }
 
     void showMenuValues(NavigationView navigationView) {
@@ -155,13 +163,12 @@ public class UserActivity extends AppCompatActivity
 
                         //Load more data when: scrolling is user's behaviour, there is no request at this moment, when still have data to download
                         if (isUserScroll && !isDownloading && !isAllDownloaded) {
+                            downloadFlag = DOWNLOAD_LOAD_MORE_RECRUITMENT;
                             isDownloading = true;
                             ApiCommunication comm = new ApiCommunication(UserActivity.this, Constants.Alert_DownloadRecruitment, "GET");
                             comm.delegate = UserActivity.this;
 
                             int page = itemCount - 1;
-                            isFirstLoad = false;
-
                             String value = utl.base64Encode(String.valueOf(page));
                             String url = String.format(getString(R.string.GetLatestRecruitmentURL), value);
                             comm.execute(url);
@@ -198,6 +205,7 @@ public class UserActivity extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.nav_userarticle) {
             Intent intent = new Intent(UserActivity.this, UserArticleActivity.class);
+            intent.putExtra("ShowEmptyDialog", true);
             startActivity(intent);
         } else if (id == R.id.nav_userpoint) {
             Intent intent = new Intent(UserActivity.this, UserTransactionActivity.class);
@@ -207,9 +215,6 @@ public class UserActivity extends AppCompatActivity
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             GLOBAL.USER = null;
             startActivity(intent);
-
-            //StartAppAd.showAd(UserActivity.this);
-
         } else if (id == R.id.nav_license) {
             Intent intent = new Intent(UserActivity.this, LicenseActivity.class);
             intent.putExtra("Flag", 1);
@@ -243,18 +248,43 @@ public class UserActivity extends AppCompatActivity
     }
 
     @Override
-    public void onFinishCommunication(MyResponse result) {
-        if (result.ResponseCode.equals("01")) {
-            if (isFirstLoad) {
-                data = ModelRecruitment.toModelList(result.ResponseMessage);
+    public void handleDialogClose(DialogInterface dialog) {
+        Intent intent = new Intent(UserActivity.this, UserArticleActivity.class);
+        intent.putExtra("ShowEmptyDialog", false);
+        startActivity(intent);
+    }
 
+    @Override
+    public void onFinishCommunication(MyResponse result) {
+        if (downloadFlag == DOWNLOAD_CHECK_ARTICLE) {
+            if (result.ResponseCode.equals("01")) {
+                //Load first recruitment
+                downloadFlag = DOWNLOAD_GET_FIRST_RECRUITMENT;
+                ApiCommunication comm = new ApiCommunication(UserActivity.this, Constants.Alert_DownloadRecruitment, "GET");
+                comm.delegate = UserActivity.this;
+
+                String value = utl.base64Encode("0");
+                String url = String.format(getString(R.string.GetLatestRecruitmentURL), value);
+                comm.execute(url);
+            } else {
+                utl.showSuperDialog(new SuperDialog(),
+                        getFragmentManager(),
+                        true,
+                        SuperDialog.DIALOG_TYPE_ERROR,
+                        Constants.Error_EmptyArticle);
+            }
+        } else if (downloadFlag == DOWNLOAD_GET_FIRST_RECRUITMENT) {
+            if (result.ResponseCode.equals("01")) {
+                data = ModelRecruitment.toModelList(result.ResponseMessage);
                 for (ModelRecruitment item : data) {
                     item.Content = utl.convertBreakline(item.Content, 0);
                 }
-
                 showLatestRecruitment(data);
             } else {
-                isDownloading = false;
+                Toast.makeText(UserActivity.this, result.ResponseMessage, Toast.LENGTH_SHORT).show();
+            }
+        } else if (downloadFlag == DOWNLOAD_LOAD_MORE_RECRUITMENT) {
+            if (result.ResponseCode.equals("01")) {
                 ArrayList<ModelRecruitment> extraList = ModelRecruitment.toModelList(result.ResponseMessage);
                 for (ModelRecruitment item : extraList) {
                     item.Content = utl.convertBreakline(item.Content, 0);
@@ -264,9 +294,9 @@ public class UserActivity extends AppCompatActivity
                 data.addAll(extraList);
                 adapter.notifyDataSetChanged();
                 lstRecruitment.invalidateViews();
+            } else {
+                Toast.makeText(UserActivity.this, result.ResponseMessage, Toast.LENGTH_SHORT).show();
             }
-        } else {
-            Toast.makeText(UserActivity.this, result.ResponseMessage, Toast.LENGTH_SHORT).show();
         }
     }
 

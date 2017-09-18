@@ -4,7 +4,6 @@ import android.net.ConnectivityManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.format.Time;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,10 +28,18 @@ import java.util.ArrayList;
 
 public class UserArticleActivity extends AppCompatActivity implements ApiResponse, SuperDialogConfirmListener {
 
-    static int closeDialogFlag = 0;
+    static final int DOWNLOAD_GET_ARTICLE = 0;
+    static final int DOWNLOAD_SAVE_ARTICLE = 1;
+
+    static final int CONFIRM_SELECT_GRADE = 0;
+    static final int CONFIRM_SELECT_SUBJECT = 1;
+    static final int CONFIRM_SAVE_ARTICLE = 2;
+
     Utilities utl = new Utilities();
     ConnectivityManager conmng;
-    int requestType = 0;
+    static boolean isShowEmptyDialog = false;
+    static int downloadFlag = 0;
+    static int confirmFlag = 0;
 
     AdView adView;
     TextView txtCreatedDate;
@@ -44,6 +51,8 @@ public class UserArticleActivity extends AppCompatActivity implements ApiRespons
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_article);
+
+        isShowEmptyDialog = getIntent().getBooleanExtra("ShowEmptyDialog", false);
 
         conmng = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 
@@ -65,9 +74,9 @@ public class UserArticleActivity extends AppCompatActivity implements ApiRespons
         }
 
         //Execute
+        downloadFlag = DOWNLOAD_GET_ARTICLE;
         ApiCommunication comm = new ApiCommunication(UserArticleActivity.this, Constants.Alert_DownloadArticle, "GET");
         comm.delegate = UserArticleActivity.this;
-        requestType = 0;
 
         long userID = GLOBAL.USER.UserID;
         String value = utl.base64Encode(String.valueOf(userID));
@@ -78,7 +87,7 @@ public class UserArticleActivity extends AppCompatActivity implements ApiRespons
             @Override
             public void onClick(View view) {
                 GLOBAL.CHECKED_CHECKBOXES = new ArrayList<>();
-                closeDialogFlag = 0;
+                confirmFlag = CONFIRM_SELECT_GRADE;
                 utl.showSuperDialog(new SuperDialog(),
                         getFragmentManager(),
                         false,
@@ -91,7 +100,7 @@ public class UserArticleActivity extends AppCompatActivity implements ApiRespons
             @Override
             public void onClick(View view) {
                 GLOBAL.CHECKED_CHECKBOXES = new ArrayList<>();
-                closeDialogFlag = 1;
+                confirmFlag = CONFIRM_SELECT_SUBJECT;
                 utl.showSuperDialog(new SuperDialog(),
                         getFragmentManager(),
                         false,
@@ -120,7 +129,7 @@ public class UserArticleActivity extends AppCompatActivity implements ApiRespons
                     return;
                 }
 
-                closeDialogFlag = 2;
+                confirmFlag = CONFIRM_SAVE_ARTICLE;
                 utl.showSuperDialog(new SuperDialog(),
                         getFragmentManager(),
                         false,
@@ -141,18 +150,20 @@ public class UserArticleActivity extends AppCompatActivity implements ApiRespons
 
     @Override
     public void onFinishCommunication(MyResponse result) {
-        if (requestType == 0) {
+        if (downloadFlag == DOWNLOAD_GET_ARTICLE) {
             if (result.ResponseCode.equals("01")) {
                 ModelArticle model = ModelArticle.toModelObject(result.ResponseMessage);
                 showUserArticle(model);
             } else {
-                utl.showSuperDialog(new SuperDialog(),
-                        getFragmentManager(),
-                        false,
-                        SuperDialog.DIALOG_TYPE_ERROR,
-                        result.ResponseMessage);
+                if (isShowEmptyDialog) {
+                    utl.showSuperDialog(new SuperDialog(),
+                            getFragmentManager(),
+                            false,
+                            SuperDialog.DIALOG_TYPE_ERROR,
+                            result.ResponseMessage);
+                }
             }
-        } else {
+        } else if (downloadFlag == DOWNLOAD_SAVE_ARTICLE) {
             if (result.ResponseCode.equals("01")) {
                 utl.showSuperDialog(new SuperDialog(),
                         getFragmentManager(),
@@ -162,21 +173,17 @@ public class UserArticleActivity extends AppCompatActivity implements ApiRespons
                 txtCreatedDate.setText("Ngày cập nhật: " + utl.createCurrentDateTime());
 
             } else {
-                utl.showSuperDialog(new SuperDialog(),
-                        getFragmentManager(),
-                        false,
-                        SuperDialog.DIALOG_TYPE_ERROR,
-                        result.ResponseMessage);
+                Toast.makeText(UserArticleActivity.this, result.ResponseMessage, Toast.LENGTH_SHORT).show();
             }
         }
     }
 
     @Override
     public void confirmButtonClicked() {
-        if (closeDialogFlag == 2) {
+        if (confirmFlag == CONFIRM_SAVE_ARTICLE) {
+            downloadFlag = DOWNLOAD_SAVE_ARTICLE;
             ApiCommunication comm = new ApiCommunication(UserArticleActivity.this, Constants.Alert_PleaseWait, "GET");
             comm.delegate = UserArticleActivity.this;
-            requestType = 1;
 
             ModelArticle model = new ModelArticle();
             model.UserID = GLOBAL.USER.UserID;
@@ -193,9 +200,9 @@ public class UserArticleActivity extends AppCompatActivity implements ApiRespons
             for (String item : GLOBAL.CHECKED_CHECKBOXES) {
                 value += item + ", ";
             }
-            if (closeDialogFlag == 0)
+            if (confirmFlag == CONFIRM_SELECT_GRADE)
                 edtGrade.setText(value);
-            else
+            else if (confirmFlag == CONFIRM_SELECT_SUBJECT)
                 edtSubject.setText(value);
         }
     }

@@ -43,12 +43,17 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements ApiResponse, SuperDialogConfirmListener, NavigationView.OnNavigationItemSelectedListener {
 
+    static final int DOWNLOAD_FIRST_ARTICLE = 0;
+    static final int DOWNLOAD_MORE_ARTICLE = 1;
+
     static boolean isDownloading = false;
     static boolean isUserScroll = false;
     boolean isAllDownloaded = false;
-    static boolean isFirstLoad = false;
     static ArrayList<ModelArticle> data;
     ConnectivityManager conmng;
+
+    static int downloadFlag = 0;
+
     Utilities utl = new Utilities();
     SuperAdapter adapter = null;
 
@@ -84,11 +89,10 @@ public class MainActivity extends AppCompatActivity implements ApiResponse, Supe
             return;
         }
 
-
         //Start downloading the latest article.
+        downloadFlag = DOWNLOAD_FIRST_ARTICLE;
         ApiCommunication comm = new ApiCommunication(MainActivity.this, Constants.Alert_DownloadArticle, "GET");
         comm.delegate = MainActivity.this;
-        isFirstLoad = true;
 
         ModelArticle model = new ModelArticle();
         model.Page = 0;
@@ -138,9 +142,9 @@ public class MainActivity extends AppCompatActivity implements ApiResponse, Supe
                         if (isUserScroll && !isDownloading && !isAllDownloaded) {
                             isDownloading = true;
 
+                            downloadFlag = DOWNLOAD_MORE_ARTICLE;
                             ApiCommunication comm = new ApiCommunication(MainActivity.this, Constants.Alert_DownloadArticle, "GET");
                             comm.delegate = MainActivity.this;
-                            isFirstLoad = false;
 
                             ModelArticle model = new ModelArticle();
                             model.Page = itemCount;
@@ -174,11 +178,15 @@ public class MainActivity extends AppCompatActivity implements ApiResponse, Supe
 
     @Override
     public void onFinishCommunication(MyResponse result) {
-        if (result.ResponseCode.equals("01")) {
-            if (isFirstLoad) {
+        if (downloadFlag == DOWNLOAD_FIRST_ARTICLE) {
+            if (result.ResponseCode.equals("01")) {
                 data = ModelArticle.toModelList(result.ResponseMessage);
                 showLatestArticle();
             } else {
+                Toast.makeText(MainActivity.this, result.ResponseMessage, Toast.LENGTH_SHORT).show();
+            }
+        } else if (downloadFlag == DOWNLOAD_MORE_ARTICLE) {
+            if (result.ResponseCode.equals("01")) {
                 isDownloading = false;
 
                 ArrayList<ModelArticle> extraList = ModelArticle.toModelList(result.ResponseMessage);
@@ -190,11 +198,9 @@ public class MainActivity extends AppCompatActivity implements ApiResponse, Supe
                 data.addAll(extraList);
                 adapter.notifyDataSetChanged();
                 lstArticle.invalidateViews();
-
-
+            } else {
+                Toast.makeText(MainActivity.this, result.ResponseMessage, Toast.LENGTH_SHORT).show();
             }
-        } else {
-            Toast.makeText(MainActivity.this, result.ResponseMessage, Toast.LENGTH_SHORT).show();
         }
     }
 

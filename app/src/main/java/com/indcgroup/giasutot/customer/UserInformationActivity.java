@@ -40,9 +40,12 @@ public class UserInformationActivity extends AppCompatActivity implements ApiRes
 
     static final int PERMISSION_READ_PHONE_STATE = 1;
 
-    static int flag = 0;
+    static final int DOWNLOAD_FIRST_ARTICLE = 0;
+    static final int DOWNLOAD_RATE_USER = 1;
+
+    static int downloadFlag = 0;
+    static int backFlag = 0;
     static long userID;
-    static int requestType = 0;
     ModelUserInformation model = new ModelUserInformation();
 
     Utilities utl = new Utilities();
@@ -62,7 +65,7 @@ public class UserInformationActivity extends AppCompatActivity implements ApiRes
 
         conmng = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 
-        flag = getIntent().getIntExtra("Flag", 0);
+        backFlag = getIntent().getIntExtra("Flag", 0);
         userID = getIntent().getLongExtra("UserID", 0);
 
         adView = (AdView) findViewById(R.id.adView);
@@ -89,9 +92,9 @@ public class UserInformationActivity extends AppCompatActivity implements ApiRes
         if (!utl.checkInternetConnection(conmng)) {
             Toast.makeText(getApplication(), Constants.Error_NoInternetConnection, Toast.LENGTH_SHORT).show();
         } else {
+            downloadFlag = DOWNLOAD_FIRST_ARTICLE;
             ApiCommunication comm = new ApiCommunication(UserInformationActivity.this, Constants.Alert_DownloadUser, "GET");
             comm.delegate = UserInformationActivity.this;
-            requestType = 0;
 
             String value = utl.base64Encode(String.valueOf(userID));
             String url = String.format(getString(R.string.GetUserInformationURL), value);
@@ -113,9 +116,9 @@ public class UserInformationActivity extends AppCompatActivity implements ApiRes
 
                         //Do nothing if not rate
                         if (val != 0) {
+                            downloadFlag = DOWNLOAD_RATE_USER;
                             ApiCommunication comm = new ApiCommunication(UserInformationActivity.this, Constants.Alert_SendRating, "GET");
                             comm.delegate = UserInformationActivity.this;
-                            requestType = 1;
 
                             ModelRating model = new ModelRating();
                             model.IMEI = imei;
@@ -169,9 +172,9 @@ public class UserInformationActivity extends AppCompatActivity implements ApiRes
 
                         //Do nothing if not rate
                         if (val != 0) {
+                            downloadFlag = DOWNLOAD_RATE_USER;
                             ApiCommunication comm = new ApiCommunication(UserInformationActivity.this, Constants.Alert_SendRating, "GET");
                             comm.delegate = UserInformationActivity.this;
-                            requestType = 1;
 
                             ModelRating model = new ModelRating();
                             model.IMEI = imei;
@@ -202,7 +205,7 @@ public class UserInformationActivity extends AppCompatActivity implements ApiRes
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case android.R.id.home: {
-                if (flag == 0) {
+                if (backFlag == 0) {
                     Intent intent = new Intent(this, MainActivity.class);
                     startActivity(intent);
                 } else {
@@ -218,7 +221,7 @@ public class UserInformationActivity extends AppCompatActivity implements ApiRes
 
     @Override
     public void onBackPressed() {
-        if (flag == 0) {
+        if (backFlag == 0) {
             Intent intent = new Intent(this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
@@ -231,7 +234,7 @@ public class UserInformationActivity extends AppCompatActivity implements ApiRes
 
     @Override
     public void onFinishCommunication(MyResponse result) {
-        if (requestType == 0) {
+        if (downloadFlag == DOWNLOAD_FIRST_ARTICLE) {
             if (result.ResponseCode.equals("01")) {
                 model = ModelUserInformation.toModelObject(result.ResponseMessage);
 
@@ -256,7 +259,7 @@ public class UserInformationActivity extends AppCompatActivity implements ApiRes
             } else {
                 Toast.makeText(UserInformationActivity.this, result.ResponseMessage, Toast.LENGTH_SHORT).show();
             }
-        } else {
+        } else if (downloadFlag == DOWNLOAD_RATE_USER) {
             if (result.ResponseCode.equals("01")) {
                 switch ((int) rabRate.getRating()) {
                     case 1:

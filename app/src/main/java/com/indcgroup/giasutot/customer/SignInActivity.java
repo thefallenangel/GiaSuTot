@@ -17,6 +17,7 @@ import com.google.android.gms.ads.AdView;
 import com.indcgroup.dialog.SuperDialogCloseListener;
 import com.indcgroup.giasutot.R;
 import com.indcgroup.giasutot.user.UserActivity;
+import com.indcgroup.giasutot.user.UserArticleActivity;
 import com.indcgroup.model.ModelAuthentication;
 import com.indcgroup.model.MyResponse;
 import com.indcgroup.loadresult.ApiCommunication;

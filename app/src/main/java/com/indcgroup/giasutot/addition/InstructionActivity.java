@@ -10,21 +10,16 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.indcgroup.giasutot.R;
 import com.indcgroup.giasutot.customer.MainActivity;
 import com.indcgroup.giasutot.user.UserActivity;
-import com.indcgroup.utility.Constants;
 import com.indcgroup.utility.Utilities;
 
 public class InstructionActivity extends AppCompatActivity {
@@ -34,14 +29,14 @@ public class InstructionActivity extends AppCompatActivity {
     private ViewPager mViewPager;
 
     InterstitialAd adPage;
-    static int flag;
+    static int backFlag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instruction);
 
-        flag = getIntent().getIntExtra("Flag", 0);
+        backFlag = getIntent().getIntExtra("Flag", 0);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -60,7 +55,7 @@ public class InstructionActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (flag == 0) {
+        if (backFlag == 0) {
             Intent intent = new Intent(this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
@@ -80,7 +75,7 @@ public class InstructionActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case android.R.id.home: {
-                if (flag == 0) {
+                if (backFlag == 0) {
                     Intent intent = new Intent(this, MainActivity.class);
                     startActivity(intent);
                 } else {

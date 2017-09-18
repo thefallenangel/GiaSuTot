@@ -17,11 +17,13 @@ public class Constants {
     public static final String Error_MissingRequiredField = "Các trường dữ liệu không được bỏ trống.";
     public static final String Error_CanNotEstimateDistance = "Không xác định.";
     public static final String Error_BigImage = "Dung lượng ảnh quá lớn! Vui lòng chọn ảnh dưới 4 MB làm ảnh đại diện!";
+    public static final String Error_EmptyArticle = "Bạn cần có bài viết giới thiệu bản thân để có thể xem được thông tin tuyển dụng gia sư mới nhất từ khách hàng.";
     public static final String Success_SendRecruitment = "Gửi bài đăng thành công!";
     public static final String Success_SignIn = "Đăng nhập thành công!";
     public static final String Success_SignUp = "Đăng ký thành công!";
     public static final String Success_UpdateInfo = "Cập nhật thành công!";
     public static final String Success_FirstRun = "Hãy đọc kỹ hướng dẫn sử dụng ở lần đầu tiên khởi chạy!";
+
 
     //Alert
     public static final String Alert_PleaseWait = "Vui lòng chờ...";

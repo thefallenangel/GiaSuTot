@@ -35,9 +35,12 @@ import java.net.URLEncoder;
 
 public class UserProfileActivity extends AppCompatActivity implements ApiResponse, GoogleApiResponse {
 
+    static final int DOWNLOAD_GET_PROFILE = 0;
+    static final int DOWNLOAD_SAVE_PROFILE = 1;
+
+    static int downloadFlag = 0;
     Utilities utl = new Utilities();
     ConnectivityManager conmng;
-    int requestType = 0;
 
     private static int RESULT_LOAD_IMAGE = 1;
 
@@ -81,9 +84,9 @@ public class UserProfileActivity extends AppCompatActivity implements ApiRespons
         }
 
         //Execute
+        downloadFlag = DOWNLOAD_GET_PROFILE;
         ApiCommunication comm = new ApiCommunication(UserProfileActivity.this, Constants.Alert_DownloadUser, "GET");
         comm.delegate = UserProfileActivity.this;
-        requestType = 0;
 
         long userID = GLOBAL.USER.UserID;
         String value = utl.base64Encode(String.valueOf(userID));
@@ -165,31 +168,24 @@ public class UserProfileActivity extends AppCompatActivity implements ApiRespons
 
     @Override
     public void onFinishCommunication(MyResponse result) {
-        if (result.ResponseCode.equals("01")) {
-            if (requestType == 0) {
+        if (downloadFlag == DOWNLOAD_GET_PROFILE) {
+            if (result.ResponseCode.equals("01")) {
                 ModelUserProfile model = ModelUserProfile.toModelObject(result.ResponseMessage);
                 showUserProfile(model);
             } else {
-                if (result.ResponseCode.equals("01")) {
-                    utl.showSuperDialog(new SuperDialog(),
-                            getFragmentManager(),
-                            true,
-                            SuperDialog.DIALOG_TYPE_SUCCESS,
-                            Constants.Success_UpdateInfo);
-                } else {
-                    utl.showSuperDialog(new SuperDialog(),
-                            getFragmentManager(),
-                            false,
-                            SuperDialog.DIALOG_TYPE_ERROR,
-                            result.ResponseMessage);
-                }
+                Toast.makeText(UserProfileActivity.this, result.ResponseMessage, Toast.LENGTH_SHORT).show();
             }
-        } else {
-            utl.showSuperDialog(new SuperDialog(),
-                    getFragmentManager(),
-                    false,
-                    SuperDialog.DIALOG_TYPE_ERROR,
-                    result.ResponseMessage);
+
+        } else if (downloadFlag == DOWNLOAD_SAVE_PROFILE) {
+            if (result.ResponseCode.equals("01")) {
+                utl.showSuperDialog(new SuperDialog(),
+                        getFragmentManager(),
+                        false,
+                        SuperDialog.DIALOG_TYPE_SUCCESS,
+                        Constants.Success_UpdateInfo);
+            } else {
+                Toast.makeText(UserProfileActivity.this, result.ResponseMessage, Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -213,9 +209,9 @@ public class UserProfileActivity extends AppCompatActivity implements ApiRespons
 
         Bitmap bm = ((BitmapDrawable) imgAvatar.getDrawable()).getBitmap();
 
+        downloadFlag = DOWNLOAD_SAVE_PROFILE;
         ApiCommunication comm = new ApiCommunication(UserProfileActivity.this, Constants.Alert_PleaseWait, "GET", bm);
         comm.delegate = UserProfileActivity.this;
-        requestType = 1;
 
         String value = ModelUserProfile.toJson(model);
         value = utl.base64Encode(value);

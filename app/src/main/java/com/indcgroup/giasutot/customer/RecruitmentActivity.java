@@ -30,9 +30,14 @@ import java.util.ArrayList;
 
 public class RecruitmentActivity extends AppCompatActivity implements ApiResponse, SuperDialogCloseListener, SuperDialogConfirmListener {
 
-    static int closeDialogFlag = 0;
+    static final int CONFIRM_SELECT_GRADE = 0;
+    static final int CONFIRM_SELECT_SUBJECT = 1;
+    static final int CONFIRM_SAVE_ARTICLE = 2;
+
     Utilities utl = new Utilities();
     ConnectivityManager conmng;
+
+    static int confirmFlag = 0;
 
     AdView adView;
     EditText edtGrade, edtSubject, edtAddress, edtPhone, edtContent;
@@ -60,8 +65,8 @@ public class RecruitmentActivity extends AppCompatActivity implements ApiRespons
         btnSelectGrade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                confirmFlag = CONFIRM_SELECT_GRADE;
                 GLOBAL.CHECKED_CHECKBOXES = new ArrayList<>();
-                closeDialogFlag = 0;
                 utl.showSuperDialog(new SuperDialog(),
                         getFragmentManager(),
                         false,
@@ -73,8 +78,8 @@ public class RecruitmentActivity extends AppCompatActivity implements ApiRespons
         btnSelectSubject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                confirmFlag = CONFIRM_SELECT_SUBJECT;
                 GLOBAL.CHECKED_CHECKBOXES = new ArrayList<>();
-                closeDialogFlag = 1;
                 utl.showSuperDialog(new SuperDialog(),
                         getFragmentManager(),
                         false,
@@ -103,7 +108,7 @@ public class RecruitmentActivity extends AppCompatActivity implements ApiRespons
                     return;
                 }
 
-                closeDialogFlag = 2;
+                confirmFlag = CONFIRM_SAVE_ARTICLE;
                 utl.showSuperDialog(new SuperDialog(),
                         getFragmentManager(),
                         false,
@@ -135,7 +140,7 @@ public class RecruitmentActivity extends AppCompatActivity implements ApiRespons
     @Override
     public void confirmButtonClicked() {
 
-        if (closeDialogFlag == 2) {
+        if (confirmFlag == CONFIRM_SAVE_ARTICLE) {
             //Execute
             ApiCommunication comm = new ApiCommunication(RecruitmentActivity.this, Constants.Alert_PleaseWait, "GET");
             comm.delegate = RecruitmentActivity.this;
@@ -156,9 +161,9 @@ public class RecruitmentActivity extends AppCompatActivity implements ApiRespons
             for (String item : GLOBAL.CHECKED_CHECKBOXES) {
                 value += item + ", ";
             }
-            if (closeDialogFlag == 0)
+            if (confirmFlag == CONFIRM_SELECT_GRADE)
                 edtGrade.setText(value);
-            else
+            else if (confirmFlag == CONFIRM_SELECT_SUBJECT)
                 edtSubject.setText(value);
         }
     }

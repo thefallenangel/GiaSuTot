@@ -36,6 +36,7 @@
     <string name="GetUserInformationURL">http://giasutot.vn/api/gate/getuserinformation?value=%1$s</string>
     <string name="AddRecruitment">http://giasutot.vn/api/gate/addrecruitment?value=%1$s</string>
     <string name="GetLatestRecruitmentURL">http://giasutot.vn/api/gate/getlatestrecruitment?value=%1$s</string>
+    <string name="CheckUserArticle">http://giasutot.vn/api/gate/checkuserarticle?value=%1$s</string>
     <string name="GetUserProfile">http://giasutot.vn/api/gate/getuserprofile?value=%1$s</string>
     <string name="SaveUserProfile">http://giasutot.vn/api/gate/saveuserprofile?value=%1$s</string>
     <string name="GetUserArticle">http://giasutot.vn/api/gate/getuserarticle?value=%1$s</string>

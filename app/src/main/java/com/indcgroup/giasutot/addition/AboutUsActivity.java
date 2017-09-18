@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.indcgroup.giasutot.R;
 import com.indcgroup.giasutot.customer.MainActivity;
@@ -16,7 +15,7 @@ import com.indcgroup.utility.Utilities;
 public class AboutUsActivity extends AppCompatActivity {
 
     Utilities utl = new Utilities();
-    static int flag;
+    static int backFlag;
 
     InterstitialAd adPage;
 
@@ -25,14 +24,14 @@ public class AboutUsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_us);
 
-        flag = getIntent().getIntExtra("Flag", 0);
+        backFlag = getIntent().getIntExtra("Flag", 0);
 
         adPage = utl.createAdPage(this, getString(R.string.ad_page_id));
     }
 
     @Override
     public void onBackPressed() {
-        if (flag == 0) {
+        if (backFlag == 0) {
             Intent intent = new Intent(this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
@@ -51,7 +50,7 @@ public class AboutUsActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case android.R.id.home: {
-                if (flag == 0) {
+                if (backFlag == 0) {
                     Intent intent = new Intent(this, MainActivity.class);
                     startActivity(intent);
                 } else {
