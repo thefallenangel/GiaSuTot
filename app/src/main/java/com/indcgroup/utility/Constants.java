@@ -12,6 +12,7 @@ public class Constants {
     public static final String TAG = "FA_TAG";
 
     //Result
+    public static final String Error_LocationServiceOff = "Vị trí trên thiết bị đang tắt. Vui lòng bật!";
     public static final String Error_NoGrantPermission = "Bạn cần cấp quyền để ứng dụng có thể chạy bình thường!";
     public static final String Error_NoInternetConnection = "Không có kết nối mạng hoặc kết nối không ổn định.";
     public static final String Error_MissingRequiredField = "Các trường dữ liệu không được bỏ trống.";

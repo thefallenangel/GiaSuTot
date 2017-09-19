@@ -17,6 +17,7 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
+import android.text.TextUtils;
 import android.text.format.Time;
 import android.util.Base64;
 import android.util.Log;
@@ -34,9 +35,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.MessageDigest;
 
-/**
- * Created by thefa on 05/08/2017.
- */
 
 public class Utilities {
 
@@ -195,6 +193,25 @@ public class Utilities {
             return true;
         else
             return false;
+    }
+
+    public boolean isLocationEnable(Context context) {
+        int locationMode;
+        String locationProvider;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            try {
+                locationMode = Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                return false;
+            }
+            return locationMode != Settings.Secure.LOCATION_MODE_OFF;
+
+        } else {
+            locationProvider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+            return !TextUtils.isEmpty(locationProvider);
+        }
     }
 
     public AdRequest createAdRequest() {

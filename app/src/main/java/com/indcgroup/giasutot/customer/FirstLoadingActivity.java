@@ -38,9 +38,14 @@ import static java.security.AccessController.getContext;
 
 public class FirstLoadingActivity extends AppCompatActivity implements LocationListener, SuperDialogCloseListener {
 
-    private FirebaseAnalytics mFirebaseAnalytics;
-    static final int PERMISSION_ACCESS_LOCATION = 1;
+    static final int CLOSE_TO_SETTINGS = 0;
+    static final int CLOSE_EXIT_APP = 1;
 
+    static final int PERMISSION_ACCESS_LOCATION = 1;
+    static final int PERMISSION_OPEN_LOCATION_SETTING = 2;
+
+    static int closeFlag = 0;
+    private FirebaseAnalytics mFirebaseAnalytics;
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
     Utilities utl = new Utilities();
@@ -67,6 +72,18 @@ public class FirstLoadingActivity extends AppCompatActivity implements LocationL
 
         txtNotification = (TextView) findViewById(R.id.txtNotification);
 
+        //Check location mode
+        if (!utl.isLocationEnable(this)) {
+            closeFlag = CLOSE_TO_SETTINGS;
+            utl.showSuperDialog(new SuperDialog(),
+                    getFragmentManager(),
+                    true,
+                    SuperDialog.DIALOG_TYPE_ERROR,
+                    Constants.Error_LocationServiceOff);
+        }
+
+
+        //Get location permission
         if (utl.checkPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) && utl.checkPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
             //Check internet connection
             if (!utl.checkInternetConnection(conmng)) {
@@ -117,14 +134,15 @@ public class FirstLoadingActivity extends AppCompatActivity implements LocationL
                         }
                     }
                 } else {
+                    closeFlag = CLOSE_EXIT_APP;
                     utl.showSuperDialog(new SuperDialog(),
                             getFragmentManager(),
                             true,
                             SuperDialog.DIALOG_TYPE_ERROR,
                             Constants.Error_NoGrantPermission);
                 }
+                break;
             }
-            break;
             default:
                 break;
         }
@@ -213,10 +231,16 @@ public class FirstLoadingActivity extends AppCompatActivity implements LocationL
         } else {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_ACCESS_LOCATION);
         }
+
+
     }
 
     @Override
     public void handleDialogClose(DialogInterface dialog) {
-        this.finishAffinity();
+        if (closeFlag == CLOSE_TO_SETTINGS) {
+            startActivityForResult(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS), PERMISSION_OPEN_LOCATION_SETTING);
+        } else if (closeFlag == CLOSE_EXIT_APP) {
+            this.finishAffinity();
+        }
     }
 }

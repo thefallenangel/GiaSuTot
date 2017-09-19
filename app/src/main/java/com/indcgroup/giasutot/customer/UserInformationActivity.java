@@ -36,7 +36,7 @@ import com.indcgroup.loadresult.ApiResponse;
 import com.indcgroup.utility.Constants;
 import com.indcgroup.utility.Utilities;
 
-public class UserInformationActivity extends AppCompatActivity implements ApiResponse, SuperDialogCloseListener {
+public class UserInformationActivity extends AppCompatActivity implements ApiResponse {
 
     static final int PERMISSION_READ_PHONE_STATE = 1;
 
@@ -189,7 +189,7 @@ public class UserInformationActivity extends AppCompatActivity implements ApiRes
                 } else {
                     utl.showSuperDialog(new SuperDialog(),
                             getFragmentManager(),
-                            true,
+                            false,
                             SuperDialog.DIALOG_TYPE_ERROR,
                             Constants.Error_NoGrantPermission);
                 }
@@ -284,11 +284,6 @@ public class UserInformationActivity extends AppCompatActivity implements ApiRes
                 Toast.makeText(UserInformationActivity.this, result.ResponseMessage, Toast.LENGTH_SHORT).show();
             }
         }
-    }
-
-    @Override
-    public void handleDialogClose(DialogInterface dialog) {
-        this.finishAffinity();
     }
 }
 
